@@ -3,102 +3,249 @@
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
 
 ## Classes
-|[Classes](https://github.com/Sinus44/CE#classes)               |Description                                           |
-|---------------------------------------------------------------|------------------------------------------------------|
-|[Window](https://github.com/Sinus44/CE#class-window)           |Класс для рисования                                   |
-|[Loop](https://github.com/Sinus44/CE#class-loop)               |Автоматический вызов функции за определенный интервал |
-|[Engine](https://github.com/Sinus44/CE#class-engine)           |Различные фишки с консолью                            |
-|[Keyboard](https://github.com/Sinus44/CE#class-keyboard)       |Обработка нажатий клавиатуры                          |
-|[Vector](https://github.com/Sinus44/CE#class-vector)           |Двумерный вектор (пока что только точка)              |
-|[Mmath](https://github.com/Sinus44/CE#class-mmath)             |Математические функции                                |
-|[Performance](https://github.com/Sinus44/CE#class-performance) |Тесты производительности                              |
-|[Color](https://github.com/Sinus44/CE#class-color)             |Цвет-коды для консоли                                 |
-|[Sound](https://github.com/Sinus44/CE#class-sound)             |Работа со звуками                                     |
-|[Logging](https://github.com/Sinus44/CE#class-logging)         |Логирование в файл                                    |
+|[Classes](https://github.com/Sinus44/console-engine#Classes)|Описание|
+|-|-|
+|[Byte](https://github.com/Sinus44/console-engine#Byte)|None|
+|[BMP](https://github.com/Sinus44/console-engine#BMP)|None|
+|[EBM](https://github.com/Sinus44/console-engine#EBM)|None|
+|[Color](https://github.com/Sinus44/console-engine#Color)|Класс цветов|
+|[Config](https://github.com/Sinus44/console-engine#Config)|Класс для обработки конфигурационных файлов *.cfg с возможностью чтения, записи, автосохранения|
+|[ImageBMP](https://github.com/Sinus44/console-engine#ImageBMP)|Импорт картинок пригодных для вставки в Window|
+|[ImageEBM](https://github.com/Sinus44/console-engine#ImageEBM)|Импорт картинок пригодных для вставки в Window|
+|[Logging](https://github.com/Sinus44/console-engine#Logging)|Класс вывода отладочной информации / записи логов в файл|
+|[Input](https://github.com/Sinus44/console-engine#Input)|Класс для получения входных ивентов консоли|
+|[Interval](https://github.com/Sinus44/console-engine#Interval)|Класс цикличного вызова функции в соответветсвии с интервалом|
+|[Mmath](https://github.com/Sinus44/console-engine#Mmath)|Некоторые математические формулы|
+|[Output](https://github.com/Sinus44/console-engine#Output)|Класс для настройки выходного буффера окна консоли|
+|[Performance](https://github.com/Sinus44/console-engine#Performance)|Класс оценки производительности, замеров времени выполнения кода, по точкам или функции|
+|[Scene](https://github.com/Sinus44/console-engine#Scene)|Класс для управления отображаемыми сценами|
+|[Sound](https://github.com/Sinus44/console-engine#Sound)|Класс звуков, импорт из файла воспроизведение ускорение замедление, остановка|
+|[Vector](https://github.com/Sinus44/console-engine#Vector)|Класс векторов|
+|[Window](https://github.com/Sinus44/console-engine#Window)|Окно - Класс окна для отрисовки ИЗО в консоли|
+|[Events](https://github.com/Sinus44/console-engine#Events)|Шаблоны Event'ов для GUI элементов|
+|[Element](https://github.com/Sinus44/console-engine#Element)|Мульти класс для большенства GUI элементов|
+|[Style](https://github.com/Sinus44/console-engine#Style)|Стиль - настройки цветов и прочего для GUI элементов|
+|[Border](https://github.com/Sinus44/console-engine#Border)|Рамка для окна|
+|[Button](https://github.com/Sinus44/console-engine#Button)|GUI - элемент Кнопка|
+|[Checkbox](https://github.com/Sinus44/console-engine#Checkbox)|GUI - элемент чек бокс|
+|[Textbox](https://github.com/Sinus44/console-engine#Textbox)|GUI элемент для ввода текста пользователем|
+|[Group](https://github.com/Sinus44/console-engine#Group)|Группа GUI элементов, авто позиционнирование элементов в соответсвии с интервалом и координатами группы|
+|[Frame](https://github.com/Sinus44/console-engine#Frame)|Основа кадра и заливка фона|
+|[Grid](https://github.com/Sinus44/console-engine#Grid)|Визуальный разделитель окна в соответсвии с кол-вом столбцов и строк|
+|[Label](https://github.com/Sinus44/console-engine#Label)|GUI - элемент текст|
 
-## Class Window
-|Method                                                                                 |Description                                      |
-|---------------------------------------------------------------------------------------|-------------------------------------------------|
-|__init__()                                                                             |Метод конструктор                                |
-|draw(fast=True)                                       									|Вывод изображения                 				  |
-|clear(fast=True)                                   								    |Отчистка консоли								  |
-|fill(symbol=" ")                                          								|Полностью заполняет буффер определенным символом |
-|point(x=0, y=0, symbol="*")                                                            |Добавить 1 символ 								  |
-|rectFill(x=0, y=0, w=1, h=1, symbol="*")                                               |Добавляет в буффер квадрат                       |
-|circleFill(x=0, y=0, r=1, symbol="*")                                                  |Добавляет в буффер заполненный круг              |
-|line(x1=0, y1=0, x2=0, y2=0, symbol="*")                                               |Добавляет в буффер линию                         |
-|paste(frame, x=0, y=0)                                                                 |Вставляет в буффер окна окно                     |
-|text(text="TEXT", x=0, y=0, color=Color.WHITE, backgroundColor=Color.Background.BLACK) |Отрисовка текста								  |
+## Class Byte
+|Метод|Описание|
+|-|-|
+|bytesToHex | Преобразует BYTES в строку с HEX|
+|getHexByte | Возвращает байт в виде HEX из HEX строки по номеру позиции|
+|getHexBytesSize | Описание отсутсвует|
+|getHexBytesNormal | Возвращает байты в виде HEX из HEX строки по номеру позиции начальной и конечной|
+|getHexBytesReverse | Возвращает байты в виде HEX из HEX строки по номеру позиции начальной и конечной обратный порядок байт|
+|hexToDec | Преобразует HEX в INT|
+|decToHex | Преобразует INT в HEX|
 
-# Using exapmle
-```python
-w = 10 # Width = 30 symbols
-h = 10 # height = 10 symbols
-window = Window(w,h) # Create Window - object
+## Class BMP
+|Метод|Описание|
+|-|-|
+|__init__ | Импорт файлов *.bmp и получение большенства данных из файла и их структуризация|
 
-window.rect(1,1,8,8) # Draw rect on (1,1) size of (8,8) 
-window.draw() # Print image in console
-```
+## Class EBM
+|Метод|Описание|
+|-|-|
+|__init__ | Импорт файлов *.ebm и получение большенства данных из файла и их структуризация|
 
-## Class Loop
-|Method     |Description       |
-|-----------|------------------|
-|__init__() |Метод конструктор |
-|start()    |Запуск цикла      |
-|stop()     |Остановка цикла   |
+## Class Color
+|Метод|Описание|
+|-|-|
+|rgb | Описание отсутсвует|
 
-## Class Engine
-|Method   |Description          |
-|---------|---------------------|
-|title()  |Установка имени окна |
-|resize() |Остановка цикла      |
+## Class Config
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|setSection | Установить значение всей секции|
+|setParam | Установить значение в запись секции|
+|read | Чтение файла|
+|write | Запись в файл|
 
-## Class Keyboard
-|Method     |Description                   |
-|-----------|------------------------------|
-|init()     |Инициализация клавиатуры      |
-|addBind()  |Создание действия при нажатии |
+## Class ImageBMP
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|getColor | Описание отсутсвует|
 
-## Class Vector
-|Method     |Description      |
-|-----------|-----------------|
-|__init__() |Создание вектора |
-
-## Class Mmath
-|Method  |Description                          |
-|--------|-------------------------------------|
-|round() |Правильное математическое округление |
-
-## Class Performance
-|Method  |Description                                      |
-|--------|-------------------------------------------------|
-|start() |Начинает отсчет времени                          |
-|time()  |Возвращает время прошедшее с вызова метода start |
-
-## Class Sound
-|Method     |Description                |
-|-----------|---------------------------|
-|__init__() |Создание звука             |
-|play()     |Воспроизвести звук         |
-|stop()     |Остановить воспроизведение |
+## Class ImageEBM
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|getColor | Описание отсутсвует|
 
 ## Class Logging
-|Method |Description                |
-|-------|---------------------------|
-|log()  |Добавить запись в файл-лог |
+|Метод|Описание|
+|-|-|
+|log | Логирование в файл|
 
-# Dependencies
-* os
-* time
-* keyboard
-* subprocess
-* threading
-* timeit
-* pyaudio
-* wave
-* ctypes
-* datetime
+## Class Input
+|Метод|Описание|
+|-|-|
+|init | Описание отсутсвует|
+|start | Описание отсутсвует|
+|stop | Описание отсутсвует|
+|mode | Описание отсутсвует|
+|tick | Описание отсутсвует|
+|clearEvents | Описание отсутсвует|
+|getEvents | Описание отсутсвует|
+
+## Class Interval
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|start | Запускает цикл|
+|stop | Останавливает цикл|
+|function | Описание отсутсвует|
+
+## Class Mmath
+|Метод|Описание|
+|-|-|
+|round | Правильное математическое округление|
+|clamp | Ограничение значения минимальным и максимальным|
+
+## Class Output
+|Метод|Описание|
+|-|-|
+|init | Описание отсутсвует|
+|mode | Описание отсутсвует|
+|getTitle | Описание отсутсвует|
+|title | Описание отсутсвует|
+|resize | Описание отсутсвует|
+
+## Class Performance
+|Метод|Описание|
+|-|-|
+|start | Описание отсутсвует|
+|time | Описание отсутсвует|
+|function | Описание отсутсвует|
+
+## Class Scene
+|Метод|Описание|
+|-|-|
+|set | Установка сцены по имени|
+|add | Добавление сцены|
+|addFromDict | Импорт сцен из объекта формата { name:scene }|
+|play | Воспроизведение сцены|
+
+## Class Sound
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|p | Описание отсутсвует|
+|speed | Описание отсутсвует|
+|play | Описание отсутсвует|
+|volume | Описание отсутсвует|
+|stop | Описание отсутсвует|
+
+## Class Vector
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|length | Длина вектора|
+|__add__ | Сложение векторов|
+
+## Class Window
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|draw | Вывод буффера в консоль|
+|clear | Отчистка вывода в консоль|
+|fill | Заливка всего буффера|
+|point | Установка символа в буффер по координатам|
+|rectFill | Заполненный прямоугольник в буффер|
+|rect | Пустотелый прямоугольник в буффер|
+|circleFill | Залитый круг в буффер|
+|circle | Пустотелый круг в буффер|
+|line | Линия по координатам|
+|paste | Вставка буффера другого объекта в текущий|
+|text | Текст|
+
+## Class Events
+|Метод|Описание|
+|-|-|
+|click | Описание отсутсвует|
+|change | Описание отсутсвует|
+|focus | Описание отсутсвует|
+|select | Описание отсутсвует|
+
+## Class Element
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|block | Описание отсутсвует|
+|intersectionFromEvent | Описание отсутсвует|
+|intersection | Описание отсутсвует|
+
+## Class Style
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|importFromConfig | Иморт стилей из файла конфигураций|
+
+## Class Border
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Button
+|Метод|Описание|
+|-|-|
+|draw | Описание отсутсвует|
+
+## Class Checkbox
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|__bool__ | Описание отсутсвует|
+|click | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Textbox
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|__str__ | Описание отсутсвует|
+|click | Описание отсутсвует|
+|block | Описание отсутсвует|
+|inputFromEvent | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Group
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|append | Описание отсутсвует|
+|eventHandler | Описание отсутсвует|
+|click | Описание отсутсвует|
+|sort | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Frame
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Grid
+|Метод|Описание|
+|-|-|
+|__init__ | Описание отсутсвует|
+|intersection | Описание отсутсвует|
+|draw | Описание отсутсвует|
+
+## Class Label
+|Метод|Описание|
+|-|-|
+|draw | Описание отсутсвует|
 
 ## License
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
-**Free Software, Hell Yeah!**
