@@ -249,4 +249,3 @@
 
 ## License
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
-[Finished in 0.4s]
