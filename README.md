@@ -1,15 +1,21 @@
-# _Console Engine_
+# _CONSOLE-ENGINE_
+Описание: Модуль для пользовательских приложений в консоли
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
+
+## Import
+```python
+import Core
+```
 
 ## Classes
 |[Classes](https://github.com/Sinus44/console-engine#Classes)|Описание|
 |-|-|
-|[Byte](https://github.com/Sinus44/console-engine#Byte)|None|
-|[BMP](https://github.com/Sinus44/console-engine#BMP)|None|
-|[EBM](https://github.com/Sinus44/console-engine#EBM)|None|
+|[Byte](https://github.com/Sinus44/console-engine#Byte)|Класс для работы с данными BYTES HEX DEC|
+|[BMP](https://github.com/Sinus44/console-engine#BMP)|Импорт файлов *.bmp и получение большенства данных из файла и их структуризация|
+|[EBM](https://github.com/Sinus44/console-engine#EBM)|Импорт файлов *.ebm и получение большенства данных из файла и их структуризация|
 |[Color](https://github.com/Sinus44/console-engine#Color)|Класс цветов|
-|[Config](https://github.com/Sinus44/console-engine#Config)|Класс для обработки конфигурационных файлов *.cfg с возможностью чтения, записи, автосохранения|
+|[Config](https://github.com/Sinus44/console-engine#Config)|Класс для обработки конфигурационных файлов .cfg с возможностью чтения, записи, автосохранения|
 |[ImageBMP](https://github.com/Sinus44/console-engine#ImageBMP)|Импорт картинок пригодных для вставки в Window|
 |[ImageEBM](https://github.com/Sinus44/console-engine#ImageEBM)|Импорт картинок пригодных для вставки в Window|
 |[Logging](https://github.com/Sinus44/console-engine#Logging)|Класс вывода отладочной информации / записи логов в файл|
@@ -39,7 +45,7 @@
 |-|-|
 |bytesToHex | Преобразует BYTES в строку с HEX|
 |getHexByte | Возвращает байт в виде HEX из HEX строки по номеру позиции|
-|getHexBytesSize | Описание отсутсвует|
+|getHexBytesSize | Возвращает байты в виде HEX из HEX строки по номеру позиции и кол-ва|
 |getHexBytesNormal | Возвращает байты в виде HEX из HEX строки по номеру позиции начальной и конечной|
 |getHexBytesReverse | Возвращает байты в виде HEX из HEX строки по номеру позиции начальной и конечной обратный порядок байт|
 |hexToDec | Преобразует HEX в INT|
@@ -58,12 +64,12 @@
 ## Class Color
 |Метод|Описание|
 |-|-|
-|rgb | Описание отсутсвует|
+|rgb | Возвращает символ-код установки цвета основного текста|
 
 ## Class Config
 |Метод|Описание|
 |-|-|
-|__init__ | Описание отсутсвует|
+|__init__ | Класс для обработки конфигурационных файлов .cfg с возможностью чтения, записи, автосохранения|
 |setSection | Установить значение всей секции|
 |setParam | Установить значение в запись секции|
 |read | Чтение файла|
