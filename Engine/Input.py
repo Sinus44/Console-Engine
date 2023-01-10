@@ -1,6 +1,5 @@
 import ctypes
 from ctypes.wintypes import *
-from Core.Logging import Logging
 
 # CTYPES ADAPTATE -------------------------------
 
@@ -58,7 +57,7 @@ class INPUT_RECORD_ARRAY(ctypes.Structure):
 # -----------------------------------------------
 
 class Input:
-	"""Класс для получения входных ивентов консоли"""
+	"""Обработка входящих событий окна консоли"""
 
 	EVENTS = []
 
@@ -74,6 +73,7 @@ class Input:
 	listning = True
 
 	class Types:
+		"""Типы событий"""
 		Keyboard = 1
 		Mouse = 2
 		Window = 4
@@ -81,6 +81,7 @@ class Input:
 		Focus = 16
 
 	class Mouse:
+		"""События мыши"""
 		#Mouse type:
 		CLICK = 0
 		MOVE = 1
@@ -94,7 +95,10 @@ class Input:
 		RIGHT = 2
 
 	class Keyboard:
+		"""События клавиатуры"""
+
 		class Keys:
+			"""Коды клавишь клавиатуры"""
 			F1 = 112
 			F2 = 113
 			F3 = 114
@@ -138,16 +142,22 @@ class Input:
 		UP = 0
 
 	class Window:
+		"""События окна"""
 		pass
 
 	class Menu:
+		"""События меню"""
 		pass
 
 	class Focus:
+		"""События фокуса"""
 		pass
 
 	class Event:
+		"""Событие"""
 		def __init__(self, type=-1, mouseKey=-1, mouseX=-1, mouseY=-1, mouseType=-1, keyboardCode=-1, keyboardChar=-1, keyboardState=-1):
+			"""Событие"""
+			
 			self.type = type
 
 			self.mouseType = mouseType
@@ -163,17 +173,13 @@ class Input:
 			return f"Type: {self.type}\nmouseType: {self.mouseType}\nMouseKey: {self.mouseKey}\nMouseX: {self.mouseX}\nMouseY: {self.mouseY}\nKeyboardCode: {self.keyboardCode}\nKeyboardChar: {self.keyboardChar}\nKeyboardState: {self.keyboardState}\n"
 
 	def init():
+		"""Включает получение событий"""
 		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
 		Input.InputRecord = INPUT_RECORD()
 
-	def start():
-		Input.listning = True
-
-	def stop():
-		Input.listning = False
-
 	def mode(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
+		"""Настройка получений событий"""
 		out = 0x0
 
 		if useHotkey: out += 0x1
@@ -188,6 +194,7 @@ class Input:
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
 
 	def tick():
+		"""Получение событий, обработка и их запись в массив"""
 		if not Input.listning: return
 
 		ctypes.windll.kernel32.ReadConsoleInputW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events))
@@ -210,9 +217,11 @@ class Input:
 		Input.EVENTS.append(event)
 
 	def clearEvents():
+		"""Очистка массива событий"""
 		Input.EVENTS = []
 
 	def getEvents(tick=False):
+		"""Возвращает события"""
 		if tick: Input.tick()
 
 		for event in Input.EVENTS:

@@ -6,40 +6,40 @@
 
 ## Import
 ```python
-import Core
+import Engine
 ```
 
 ## Classes
 |[Classes](https://github.com/Sinus44/console-engine#Classes)|Описание|
 |-|-|
-|[Byte](https://github.com/Sinus44/console-engine#Byte)|Работа с данными BYTES-HEX-INT|
-|[BMP](https://github.com/Sinus44/console-engine#BMP)|Импорт файлов *.bmp, получение данных из файла и их структуризация|
-|[EBM](https://github.com/Sinus44/console-engine#EBM)|Импорт файлов *.ebm, получение данных из файла и их структуризация|
-|[Color](https://github.com/Sinus44/console-engine#Color)|Работа с цветами для консоли|
-|[Config](https://github.com/Sinus44/console-engine#Config)|Обработка конфигурационных файлов *.cfg, чтение, запись, автосохранение|
-|[ImageBMP](https://github.com/Sinus44/console-engine#ImageBMP)|Импорт картинок пригодных для вставки в Window, из формата *.bmp|
-|[ImageEBM](https://github.com/Sinus44/console-engine#ImageEBM)|Импорт картинок пригодных для вставки в Window, из формата *.ebm|
-|[Input](https://github.com/Sinus44/console-engine#Input)|Обработка входящих событий окна консоли|
-|[Interval](https://github.com/Sinus44/console-engine#Interval)|Цикличный вызов функции в соответветсвии с интервалом|
-|[Logging](https://github.com/Sinus44/console-engine#Logging)|Запись отладочной информации в файл|
-|[Mmath](https://github.com/Sinus44/console-engine#Mmath)|Математические функции|
-|[Output](https://github.com/Sinus44/console-engine#Output)|Настройка выходного буффера окна консоли|
-|[Performance](https://github.com/Sinus44/console-engine#Performance)|Замер времени выполнения кода|
-|[Scene](https://github.com/Sinus44/console-engine#Scene)|Управления отображаемыми сценами|
-|[Sound](https://github.com/Sinus44/console-engine#Sound)|Импортирование звуков из файла, воспроизведение|
-|[Vector](https://github.com/Sinus44/console-engine#Vector)|Векторы и математические функции для них|
-|[Window](https://github.com/Sinus44/console-engine#Window)|Изображение в консоли|
-|[Events](https://github.com/Sinus44/console-engine#Events)|[GUI] Шаблоны событий для GUI элементов|
-|[Element](https://github.com/Sinus44/console-engine#Element)|[GUI] База для GUI элементов|
-|[Style](https://github.com/Sinus44/console-engine#Style)|[GUI] Настройка цветов для GUI элементов|
-|[Border](https://github.com/Sinus44/console-engine#Border)|[GUI] Рамка для изображения|
-|[Button](https://github.com/Sinus44/console-engine#Button)|[GUI] Кнопка|
-|[Checkbox](https://github.com/Sinus44/console-engine#Checkbox)|[GUI] Переключатель|
-|[Textbox](https://github.com/Sinus44/console-engine#Textbox)|[GUI] Текстовое поле|
-|[Group](https://github.com/Sinus44/console-engine#Group)|[GUI] Группа GUI элементов|
-|[Frame](https://github.com/Sinus44/console-engine#Frame)|[GUI] Основа кадра и заливка фона|
-|[Grid](https://github.com/Sinus44/console-engine#Grid)|[GUI] Визуальная сетка|
-|[Label](https://github.com/Sinus44/console-engine#Label)|[GUI] Текст|
+|[Byte](https://github.com/Sinus44/console-engine#class-Byte)|Работа с данными BYTES-HEX-INT|
+|[BMP](https://github.com/Sinus44/console-engine#class-BMP)|Импорт файлов *.bmp, получение данных из файла и их структуризация|
+|[EBM](https://github.com/Sinus44/console-engine#class-EBM)|Импорт файлов *.ebm, получение данных из файла и их структуризация|
+|[Color](https://github.com/Sinus44/console-engine#class-Color)|Работа с цветами для консоли|
+|[Config](https://github.com/Sinus44/console-engine#class-Config)|Обработка конфигурационных файлов *.cfg, чтение, запись, автосохранение|
+|[ImageBMP](https://github.com/Sinus44/console-engine#class-ImageBMP)|Импорт картинок пригодных для вставки в Window, из формата *.bmp|
+|[ImageEBM](https://github.com/Sinus44/console-engine#class-ImageEBM)|Импорт картинок пригодных для вставки в Window, из формата *.ebm|
+|[Input](https://github.com/Sinus44/console-engine#class-Input)|Обработка входящих событий окна консоли|
+|[Interval](https://github.com/Sinus44/console-engine#class-Interval)|Цикличный вызов функции в соответветсвии с интервалом|
+|[Logging](https://github.com/Sinus44/console-engine#class-Logging)|Запись отладочной информации в файл|
+|[Mmath](https://github.com/Sinus44/console-engine#class-Mmath)|Математические функции|
+|[Output](https://github.com/Sinus44/console-engine#class-Output)|Настройка выходного буффера окна консоли|
+|[Performance](https://github.com/Sinus44/console-engine#class-Performance)|Замер времени выполнения кода|
+|[Scene](https://github.com/Sinus44/console-engine#class-Scene)|Управления отображаемыми сценами|
+|[Sound](https://github.com/Sinus44/console-engine#class-Sound)|Импортирование звуков из файла, воспроизведение|
+|[Vector](https://github.com/Sinus44/console-engine#class-Vector)|Векторы и математические функции для них|
+|[Window](https://github.com/Sinus44/console-engine#class-Window)|Изображение в консоли|
+|[Events](https://github.com/Sinus44/console-engine#class-Events)|[GUI] Шаблоны событий для GUI элементов|
+|[Element](https://github.com/Sinus44/console-engine#class-Element)|[GUI] База для GUI элементов|
+|[Style](https://github.com/Sinus44/console-engine#class-Style)|[GUI] Настройка цветов для GUI элементов|
+|[Border](https://github.com/Sinus44/console-engine#class-Border)|[GUI] Рамка для изображения|
+|[Button](https://github.com/Sinus44/console-engine#class-Button)|[GUI] Кнопка|
+|[Checkbox](https://github.com/Sinus44/console-engine#class-Checkbox)|[GUI] Переключатель|
+|[Textbox](https://github.com/Sinus44/console-engine#class-Textbox)|[GUI] Текстовое поле|
+|[Group](https://github.com/Sinus44/console-engine#class-Group)|[GUI] Группа GUI элементов|
+|[Frame](https://github.com/Sinus44/console-engine#class-Frame)|[GUI] Основа кадра и заливка фона|
+|[Grid](https://github.com/Sinus44/console-engine#class-Grid)|[GUI] Визуальная сетка|
+|[Label](https://github.com/Sinus44/console-engine#class-Label)|[GUI] Текст|
 
 ## Class Byte
 Работа с данными BYTES-HEX-INT

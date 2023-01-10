@@ -1,10 +1,11 @@
-from Core.Input import Input
-from Core.Element import Element
+from Engine.Input import Input
+from Engine.Element import Element
 
 class Textbox(Element):
-    """GUI элемент для ввода текста пользователем"""
+    """[GUI] Текстовое поле"""
     
     def __init__(self, screen, style, x, y, text="", enable=True, maxLength=0, alphabet="123457890"):
+        """[GUI] Текстовое поле"""
         super().__init__(screen, style, x, y, text, enable)
         self.value = ""
         self.maxLength = maxLength
@@ -12,20 +13,24 @@ class Textbox(Element):
         self.alphabet = alphabet
 
     def __str__(self):
+        """Возвращает текст из текствого поля"""
         return self.value
         
     def click(self, obj):
+        """Событие нажатия"""
         if self.focused:
             self.selected = not(self.selected)
             if self.selected:
                 self.select(self)
 
     def block(self):
+        """Блокировка текстового поля"""
         self.focused = False
         self.enable = False
         self.selected = False
 
     def inputFromEvent(self, event):
+        """Обработка нажатий клавиатуры"""
         if not(self.selected): return
         if event.type == Input.Types.Keyboard:
             if event.keyboardState == Input.Keyboard.DOWN:
@@ -38,6 +43,7 @@ class Textbox(Element):
                         self.change(self)
 
     def draw(self):
+        """Отрисовка"""
         text = self.text + ": " + self.value
         self.intersectionLen = len(text)
 

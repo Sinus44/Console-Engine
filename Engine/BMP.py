@@ -1,8 +1,10 @@
-from Core.Byte import Byte
+from Engine.Byte import Byte
 
 class BMP:
+	"""Импорт файлов *.bmp, получение данных из файла и их структуризация"""
+	
 	def __init__(self, path):
-		"""Импорт файлов *.bmp и получение большенства данных из файла и их структуризация"""
+		"""Импорт файлов *.bmp, получение данных из файла и их структуризация"""
 		self.path = path
 
 		self.file = open(path, "rb")

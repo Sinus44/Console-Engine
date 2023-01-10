@@ -1,10 +1,11 @@
-from Core.Color import Color
-from Core.BMP import BMP
+from Engine.Color import Color
+from Engine.EBM import EBM
 
-class ImageBMP(BMP):
-	"""Импорт картинок пригодных для вставки в Window"""
+class ImageEBM(EBM):
+	"""Импорт картинок пригодных для вставки в Window, из формата *.ebm"""
 	
 	def __init__(self, path, alpha=False):
+		"""Импорт картинок пригодных для вставки в Window, из формата *.ebm"""
 		super().__init__(path)
 		self.alpha = alpha
 		self.alphaColor = (0, 0, 0)
@@ -18,6 +19,7 @@ class ImageBMP(BMP):
 				self.buffer[y].append(self.getColor(color))
 
 	def getColor(self, color):
+		"""Внутренний метод для преобразования кортежа цвета в символ-код"""
 		if self.alphaColor == color:
 			return 0
 

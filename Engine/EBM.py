@@ -1,8 +1,10 @@
-from Core.Byte import Byte
+from Engine.Byte import Byte
 
 class EBM:
+	"""Импорт файлов *.ebm, получение данных из файла и их структуризация"""
+	
 	def __init__(self, path):
-		"""Импорт файлов *.ebm и получение большенства данных из файла и их структуризация"""
+		"""Импорт файлов *.ebm, получение данных из файла и их структуризация"""
 		self.path = path
 
 		file = open(path, "rb")

@@ -1,9 +1,10 @@
-from Core.Mmath import Mmath
+from Engine.Mmath import Mmath
 
 class Grid:
-    """Визуальный разделитель окна в соответсвии с кол-вом столбцов и строк"""
+    """[GUI] Визуальная сетка"""
 
     def __init__(self, screen, x, y, w, h, columns, strings, style):
+        """[GUI] Визуальная сетка"""
         self.screen = screen
         self.w = w
         self.h = h
@@ -17,11 +18,13 @@ class Grid:
         self.cellH = Mmath.round((h - (strings - 1)) / strings)
     
     def intersection(self, x, y):
+        """Вовзращает координаты в сетке"""
         x1 = x // self.cellW
         y1 = y // self.cellH
         return (x1, y1)
     
     def draw(self):
+        """Отрисовка"""
         for i in range(1, self.columns):
             self.screen.line(self.x + i * self.cellW, self.y, self.x + i * self.cellW, self.y + self.h, self.style["background"] + self.style["text"] + "|")
         

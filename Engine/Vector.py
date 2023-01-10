@@ -1,7 +1,8 @@
 class Vector:
-	"""Класс векторов"""
+	"""Векторы и математические функции для них"""
 
 	def __init__(self, x=0, y=0):
+		"""Векторы и математические функции для них"""
 		self.x = x
 		self.y = y
 	
@@ -20,5 +21,6 @@ class Vector:
 			self.x += y
 			self.y += y
 			return self
-		
+	
 		raise Exception("Unkown type")
+		

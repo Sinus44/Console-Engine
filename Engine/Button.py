@@ -1,9 +1,10 @@
-from Core.Element import Element
+from Engine.Element import Element
 
 class Button(Element):
-    """GUI - элемент Кнопка"""
+    """[GUI] Кнопка"""
     
     def draw(self):
+        """Отрисовка"""
         text = f"[ {self.text} ]"
         self.intersectionLen = len(text)
 

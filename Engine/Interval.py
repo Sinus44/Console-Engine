@@ -2,9 +2,10 @@ import threading
 import time
 
 class Interval:
-	"""Класс цикличного вызова функции в соответветсвии с интервалом"""
+	"""Цикличный вызов функции в соответветсвии с интервалом"""
 
 	def __init__(self, callback, t=1, daemon=False):
+		"""Цикличный вызов функции в соответветсвии с интервалом"""
 		self.on = False
 		self.callback = callback
 		self.time = t
@@ -20,6 +21,7 @@ class Interval:
 		self.on = False
 	
 	def function(self):
+		"""Метод котоый будет запущен в отдельном потоке"""
 		while self.on:
 			self.callback()
 			time.sleep(self.time)

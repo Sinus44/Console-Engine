@@ -1,9 +1,10 @@
-from Core.Color import Color
+from Engine.Color import Color
 
 class Style(dict):
-    """Стиль - настройки цветов и прочего для GUI элементов"""
+    """[GUI] Настройка цветов для GUI элементов"""
 
     def __init__(self):
+        """[GUI] Настройка цветов для GUI элементов"""
         super().__init__({
 			"text": Color.BLACK,
 			"textF": Color.WHITE,

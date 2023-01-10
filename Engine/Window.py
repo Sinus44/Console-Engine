@@ -1,10 +1,11 @@
 import ctypes
-from Core.Color import Color
+from Engine.Color import Color
 
 class Window:
-	"""Окно - Класс окна для отрисовки ИЗО в консоли"""
+	"""Изображение в консоли"""
 
 	def __init__(self, w=10, h=10):
+		"""Изображение в консоли"""
 		self.w = w
 		self.h = h
 
