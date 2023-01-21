@@ -20,7 +20,7 @@ class Window:
 			s += "".join(self.buffer[i])
 
 		s += "".join(self.buffer[self.h - 1])
-		ctypes.windll.kernel32.WriteConsoleW(ctypes.windll.kernel32.GetStdHandle(-11), s, len(s))
+		ctypes.windll.kernel32.WriteConsoleW(ctypes.windll.kernel32.GetStdHandle(-11), s, len(s), None, None)
 
 	def clear(self, fast=True):
 		"""Отчистка вывода в консоль"""
