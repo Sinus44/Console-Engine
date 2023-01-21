@@ -1,7 +1,9 @@
+from Engine.Logging import Logging
+
 class Group:
     """[GUI] Группа GUI элементов"""
 
-    def __init__(self, screen, x, y, interval=1):
+    def __init__(self, screen, x, y, interval=1, maxElements=10):
         """[GUI] Группа GUI элементов"""
         self.screen = screen
         self.x = x
@@ -9,6 +11,7 @@ class Group:
         self.elements = []
         self.interval = interval
         self.selected = {}
+        self.maxElements = maxElements
 
     def append(self, element):
         """Добавление элементов в группу"""
@@ -26,7 +29,7 @@ class Group:
         """Обработка событий для всех элементов в группе"""
         for element in self.elements:
             if element.focused:
-                element.click(self)
+                element.click(element)
     
     def sort(self):
         """Автопозиционирование элементов группы"""
@@ -37,5 +40,5 @@ class Group:
 
     def draw(self):
         """Отрисовка всех элементов группы"""
-        for element in self.elements:
-            element.draw()
+        for i in range(min(len(self.elements), self.maxElements)):
+            self.elements[i].draw()

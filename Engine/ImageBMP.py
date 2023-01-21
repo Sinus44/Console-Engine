@@ -23,4 +23,4 @@ class ImageBMP(BMP):
 		if self.alphaColor == color:
 			return 0
 
-		return Color.Background.rgb(color[0], color[1], color[2]) + " "
+		return Color.rgbBackground(color[0], color[1], color[2]) + " "

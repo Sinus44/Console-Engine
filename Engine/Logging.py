@@ -13,3 +13,11 @@ class Logging:
 			file.write(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}\n")
 
 		file.close()
+
+	def print(*text):
+		"""Логирование в консоль"""
+		date = datetime.datetime.now()
+		
+		for i in text:
+			i = str(i)
+			print(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}\n")

@@ -1,6 +1,7 @@
 """Модуль для пользовательских приложений в консоли"""
 
 # Engine
+from Engine.Admin import Admin
 from Engine.BMP import BMP
 from Engine.EBM import EBM
 from Engine.Byte import Byte
@@ -13,11 +14,13 @@ from Engine.Interval import Interval
 from Engine.Logging import Logging
 from Engine.Mmath import Mmath
 from Engine.Output import Output
+from Engine.Perceptron import Perceptron
 from Engine.Performance import Performance
 from Engine.Scene import Scene
 from Engine.Sound import Sound
 from Engine.Vector import Vector
 from Engine.Window import Window
+
 
 # GUI
 from Engine.Events import Events
@@ -33,3 +36,4 @@ from Engine.Frame import Frame
 from Engine.Grid import Grid
 from Engine.Style import Style
 from Engine.Label import Label
+from Engine.Table import Table

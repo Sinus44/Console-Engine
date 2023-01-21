@@ -172,32 +172,30 @@ class Input:
 		def __str__(self):
 			return f"Type: {self.type}\nmouseType: {self.mouseType}\nMouseKey: {self.mouseKey}\nMouseX: {self.mouseX}\nMouseY: {self.mouseY}\nKeyboardCode: {self.keyboardCode}\nKeyboardChar: {self.keyboardChar}\nKeyboardState: {self.keyboardState}\n"
 
-	def init():
+	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
 		"""Включает получение событий"""
 		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
 		Input.InputRecord = INPUT_RECORD()
+		
+		out = 0
 
-	def mode(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
-		"""Настройка получений событий"""
-		out = 0x0
-
-		if useHotkey: out += 0x1
-		if lineInput: out += 0x2
-		if echo: out += 0x4
-		if resizeEvents: out += 0x8
-		if mouseEvents: out += 0x10
-		if insert: out += 0x20
-		if quickEdit: out += 0x40
-		if extended: out += 0x80
+		if useHotkey: out += 1
+		if lineInput: out += 2
+		if echo: out += 4
+		if resizeEvents: out += 8
+		if mouseEvents: out += 16
+		if insert: out += 32
+		if quickEdit: out += 64
+		if extended: out += 128
 
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
 
-	def tick():
+	def tick(asyn=True):
 		"""Получение событий, обработка и их запись в массив"""
 		if not Input.listning: return
 
-		ctypes.windll.kernel32.ReadConsoleInputW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events))
+		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events), 2 if asyn else 0)
 
 		record = Input.InputRecord
 
@@ -222,11 +220,12 @@ class Input:
 
 	def getEvents(tick=False):
 		"""Возвращает события"""
-		if tick: Input.tick()
+		if tick:
+			Input.tick()
 
 		for event in Input.EVENTS:
 			if len(Input.EVENTS):
-				event = Input.EVENTS.pop()
-				yield event
+				ev = Input.EVENTS.pop()
+				yield ev
 			else:
 				return []

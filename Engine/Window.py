@@ -9,6 +9,10 @@ class Window:
 		self.w = w
 		self.h = h
 
+	def print(self):
+		for string in self.buffer:
+			print("".join(string))
+
 	def draw(self):
 		"""Вывод буффера в консоль"""
 		s = ""
