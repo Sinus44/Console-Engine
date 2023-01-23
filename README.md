@@ -4,6 +4,11 @@
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
+
+# Тестировалось на:
+- Python 3.10.0
+- Windows 10 (22H2)
+
 # Classes
 |[Classes](https://github.com/Sinus44/Console-Engine#Classes)|Описание|
 |-|-|
@@ -523,4 +528,3 @@
 Принимает: (Event) event - событие
 ### draw()
 Отрисовка
-
