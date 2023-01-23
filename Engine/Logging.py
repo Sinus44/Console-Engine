@@ -14,10 +14,10 @@ class Logging:
 
 		file.close()
 
-	def print(*text):
+	def print(*text, end="\n"):
 		"""Логирование в консольnПринимает: (*strings) - строки для логгирования"""
 		date = datetime.datetime.now()
 		
 		for i in text:
 			i = str(i)
-			print(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}\n")
+			print(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}{end}")
