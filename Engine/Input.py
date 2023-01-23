@@ -1,5 +1,7 @@
 import ctypes
 from ctypes.wintypes import *
+from Engine.Logging import *
+from Engine.Byte import *
 
 # CTYPES ADAPTATE -------------------------------
 
@@ -70,8 +72,6 @@ class Input:
 	ruCaps = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ"
 	ru = ruCaps.lower()
 
-	listning = True
-
 	class Types:
 		"""Типы событий"""
 		Keyboard = 1
@@ -83,7 +83,7 @@ class Input:
 	class Mouse:
 		"""События мыши"""
 		#Mouse type:
-		CLICK = 0
+		DOWN = 0
 		MOVE = 1
 		DOUBLECLICK = 2
 		WHEELV = 4
@@ -153,25 +153,6 @@ class Input:
 		"""События фокуса"""
 		pass
 
-	class Event:
-		"""Событие"""
-		def __init__(self, type=-1, mouseKey=-1, mouseX=-1, mouseY=-1, mouseType=-1, keyboardCode=-1, keyboardChar=-1, keyboardState=-1):
-			"""Событие"""
-			
-			self.type = type
-
-			self.mouseType = mouseType
-			self.mouseKey = mouseKey
-			self.mouseX = mouseX
-			self.mouseY = mouseY
-
-			self.keyboardCode = keyboardCode
-			self.keyboardChar = keyboardChar
-			self.keyboardState = keyboardState
-
-		def __str__(self):
-			return f"Type: {self.type}\nmouseType: {self.mouseType}\nMouseKey: {self.mouseKey}\nMouseX: {self.mouseX}\nMouseY: {self.mouseY}\nKeyboardCode: {self.keyboardCode}\nKeyboardChar: {self.keyboardChar}\nKeyboardState: {self.keyboardState}\n"
-
 	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
 		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
 		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
@@ -189,43 +170,57 @@ class Input:
 		if quickEdit: out += 64
 		if extended: out += 128
 
+		Input.varInit()
+
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
 
-	def tick(asyn=True):
-		"""Получение событий, обработка и их запись в массив\nПринимает: (bool) asyn - не ждать события"""
-		if not Input.listning: return
-
-		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events), 2 if asyn else 0)
-
-		record = Input.InputRecord
-
-		event = record.Event
-		eventType = record.EventType
-
-		mouseX = event.MouseEvent.dwMousePosition.X # X
-		mouseY = event.MouseEvent.dwMousePosition.Y # Y
-		mouseKey = event.MouseEvent.dwButtonState # какая кнопка клавиатуры нажата
-		mouseType = event.MouseEvent.dwEventFlags # колесо / нажатие / движение / двойное нажатие
-
-		keyboardCode = event.KeyEvent.wVirtualKeyCode # Код кнопки клавиатуры
-		keyboardChar = event.KeyEvent.uChar.UnicodeChar # Символ клавиши
-		keyboardState = event.KeyEvent.bKeyDown # Состояние кнопки
-
-		event = Input.Event(type=eventType, mouseType=mouseType, mouseKey=mouseKey, mouseX=mouseX, mouseY=mouseY, keyboardCode=keyboardCode, keyboardChar=keyboardChar, keyboardState=keyboardState)
-		Input.EVENTS.append(event)
-
-	def clearEvents():
-		"""Очистка массива событий"""
-		Input.EVENTS = []
-
-	def getEvents(tick=True):
-		"""Возвращает события\nПринимает: (bool) tick - авто получение событий"""
-		if tick:
+	def reset():
+		"""Отчистка входного буффера"""
+		prev = 0
+		Input.tick()
+		while int(bytes(Input.events)[0]) != 0:
 			Input.tick()
 
-		for event in Input.EVENTS:
-			if len(Input.EVENTS):
-				ev = Input.EVENTS.pop()
-				yield ev
-			else:
-				return []
+		Input.varInit()
+	
+	def varInit():
+		"""Сброс / инициализация переменных"""
+		Input.eventType = 0
+
+		Input.mouseX = 0
+		Input.mouseY = 0
+		Input.mouseKey = 0
+		
+		Input.mouseType = 0
+
+		Input.keyboardCode = 0
+		Input.keyboardChar = 0
+		Input.keyboardState = 0
+		Input.prevKeyboardState = False
+		Input.prevMouseState = False
+
+		Input.event = 0
+		Input.eventString = ""
+
+	def tick():
+		"""Получение событий, обработка и их запись в массив\nПринимает: (bool) asyn - не ждать события"""
+
+		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events), 2)
+		record = Input.InputRecord
+
+		Input.event = record.Event
+		Input.eventType = record.EventType
+
+		Input.mouseX = Input.event.MouseEvent.dwMousePosition.X # X
+		Input.mouseY = Input.event.MouseEvent.dwMousePosition.Y # Y
+		Input.mouseKey = Input.event.MouseEvent.dwButtonState # какая кнопка клавиатуры нажата
+		
+		Input.prevMouseState = Input.mouseType == Input.Mouse.DOWN
+		Input.mouseType = Input.event.MouseEvent.dwEventFlags # колесо / нажатие / движение / двойное нажатие
+
+		Input.prevKeyboardState = Input.keyboardState if Input.eventType == Input.Types.Keyboard else False
+		Input.keyboardCode = Input.event.KeyEvent.wVirtualKeyCode # Код кнопки клавиатуры
+		Input.keyboardChar = Input.event.KeyEvent.uChar.UnicodeChar # Символ клавиши
+		Input.keyboardState = Input.event.KeyEvent.bKeyDown if Input.eventType == Input.Types.Keyboard else False # Состояние кнопки
+
+		Input.eventString = f"{Input.mouseX}{Input.mouseY}{Input.mouseKey}{Input.keyboardCode}{Input.keyboardChar}{Input.keyboardState}"

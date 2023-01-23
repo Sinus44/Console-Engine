@@ -21,12 +21,12 @@ class Element(Events):
         self.focused = False
         self.enable = False
 
-    def intersectionFromEvent(self, event):
+    def intersectionFromEvent(self):
         """Проверка на пересечение с мышью из события\n(Event) - событие"""
         if self.enable:
-            if event.type == Input.Types.Mouse:
-                if event.mouseType == Input.Mouse.MOVE:
-                    self.intersection(event.mouseX, event.mouseY)
+            if Input.eventType == Input.Types.Mouse:
+                if Input.mouseType == Input.Mouse.MOVE:
+                    self.intersection(Input.mouseX, Input.mouseY)
 
     def intersection(self, x, y):
         """Проверка на пересечение по координатам\nПринимает: (int) x - координата x, (int) y - координата y"""

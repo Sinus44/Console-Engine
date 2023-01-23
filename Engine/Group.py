@@ -17,13 +17,13 @@ class Group:
         """Добавление элементов в группу\nПринимает: (Element or any [GUI]) element - элемент для добавления в группу"""
         self.elements.append(element)
     
-    def eventHandler(self, event):
+    def eventHandler(self):
         """Обработка событий для всех элементов в группе\nПринимает: (Event) - событие"""
         for element in self.elements:
-            element.intersectionFromEvent(event)
+            element.intersectionFromEvent()
 
             if hasattr(element, "inputFromEvent"):
-                element.inputFromEvent(event)
+                element.inputFromEvent()
     
     def click(self):
         """Обработка событий для всех элементов в группе"""

@@ -1,6 +1,6 @@
 # _CONSOLE-ENGINE_
 Описание библиотеки:
-Модуль для пользовательских приложений в консоли
+Многосторонний модуль, для разных задач
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
@@ -15,14 +15,14 @@
 |[Admin](https://github.com/Sinus44/Console-Engine#class-Admin)|Запуск от имени адмнистратора|
 |[Byte](https://github.com/Sinus44/Console-Engine#class-Byte)|Работа с данными BYTES-HEX-DEC-STRING|
 |[BMP](https://github.com/Sinus44/Console-Engine#class-BMP)|Импорт файлов *.bmp, получение данных из файла и их структуризация|
-|[EBM](https://github.com/Sinus44/Console-Engine#class-EBM)|Импорт файлов *.ebm, получение данных из файла и их структуризация|
 |[Color](https://github.com/Sinus44/Console-Engine#class-Color)|Работа с цветами для консоли|
 |[Config](https://github.com/Sinus44/Console-Engine#class-Config)|Обработка конфигурационных файлов *.cfg, чтение, запись, автосохранение|
+|[EBM](https://github.com/Sinus44/Console-Engine#class-EBM)|Импорт файлов *.ebm, получение данных из файла и их структуризация|
 |[ImageBMP](https://github.com/Sinus44/Console-Engine#class-ImageBMP)|Импорт картинок пригодных для вставки в Window, из формата *.bmp|
 |[ImageEBM](https://github.com/Sinus44/Console-Engine#class-ImageEBM)|Импорт картинок пригодных для вставки в Window, из формата *.ebm|
+|[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
 |[Input](https://github.com/Sinus44/Console-Engine#class-Input)|Обработка входящих событий окна консоли|
 |[Interval](https://github.com/Sinus44/Console-Engine#class-Interval)|Цикличный вызов функции в соответветсвии с интервалом|
-|[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
 |[Mmath](https://github.com/Sinus44/Console-Engine#class-Mmath)|Математические функции|
 |[Output](https://github.com/Sinus44/Console-Engine#class-Output)|Настройка выходного буффера окна консоли|
 |[Perceptron](https://github.com/Sinus44/Console-Engine#class-Perceptron)|Простой нейрон|
@@ -130,29 +130,6 @@
 Конструктор
 Принимает: (string) path - путь к файлу
 
-## Class EBM
-Импорт файлов *.ebm, получение данных из файла и их структуризация
-### Методы:
-
-### \_\_init\_\_()
-Конструктор
-Принимает: (string) path - путь к файлу
-
-### convertArrayToEBM()
-Преобразует массив в EMB
-Принимает: (3_array_int) array - 3х мерный массив int содержащий цвета пикселей
-
-### readFromFile()
-Чтение из файла
-
-### readFromHex()
-Чтение из hex строки
-Принимает: (string) hex - строка формата hex
-
-### saveToFile()
-Сохранение в файл
-Принимает: (string) fileName - название файла
-
 ## Class Color
 Работа с цветами для консоли
 ### Методы:
@@ -189,6 +166,29 @@
 ### write()
 Запись в файл
 
+## Class EBM
+Импорт файлов *.ebm, получение данных из файла и их структуризация
+### Методы:
+
+### \_\_init\_\_()
+Конструктор
+Принимает: (string) path - путь к файлу
+
+### convertArrayToEBM()
+Преобразует массив в EMB
+Принимает: (3_array_int) array - 3х мерный массив int содержащий цвета пикселей
+
+### readFromFile()
+Чтение из файла
+
+### readFromHex()
+Чтение из hex строки
+Принимает: (string) hex - строка формата hex
+
+### saveToFile()
+Сохранение в файл
+Принимает: (string) fileName - название файла
+
 ## Class ImageBMP
 Импорт картинок пригодных для вставки в Window, из формата *.bmp
 ### Методы:
@@ -215,6 +215,17 @@
 Принимает: (tuple) color - цвет
 Возвращает: (string) - символ код цвета OR (int) - 0 если alpha канал
 
+## Class Logging
+Запись отладочной информации в файл
+### Методы:
+
+### log()
+Логирование в файл
+Принимает: (*strings) - строки для логгирования
+
+### print()
+Логирование в консольnПринимает: (*strings) - строки для логгирования
+
 ## Class Input
 Обработка входящих событий окна консоли
 ### Методы:
@@ -223,16 +234,15 @@
 Включает получение событий
 Принимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit
 
+### reset()
+Отчистка входного буффера
+
+### varInit()
+Сброс / инициализация переменных
+
 ### tick()
 Получение событий, обработка и их запись в массив
 Принимает: (bool) asyn - не ждать события
-
-### clearEvents()
-Очистка массива событий
-
-### getEvents()
-Возвращает события
-Принимает: (bool) tick - авто получение событий
 
 ## Class Interval
 Цикличный вызов функции в соответветсвии с интервалом
@@ -250,17 +260,6 @@
 
 ### function()
 Метод котоый будет запущен в отдельном потоке
-
-## Class Logging
-Запись отладочной информации в файл
-### Методы:
-
-### log()
-Логирование в файл
-Принимает: (*strings) - строки для логгирования
-
-### print()
-Логирование в консольnПринимает: (*strings) - строки для логгирования
 
 ## Class Mmath
 Математические функции
@@ -651,3 +650,4 @@
 
 ### draw()
 Отрисовка
+

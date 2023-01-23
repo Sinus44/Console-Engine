@@ -1,12 +1,13 @@
-"""Модуль для пользовательских приложений в консоли"""
+"""Многосторонний модуль, для разных задач"""
+# version 9
 
 # Engine
 from Engine.Admin import Admin
 from Engine.BMP import BMP
-from Engine.EBM import EBM
 from Engine.Byte import Byte
 from Engine.Color import Color
 from Engine.Config import Config
+from Engine.EBM import EBM
 from Engine.ImageBMP import ImageBMP  
 from Engine.ImageEBM import ImageEBM
 from Engine.Input import Input

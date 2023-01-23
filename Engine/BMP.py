@@ -8,7 +8,7 @@ class BMP:
 		self.path = path
 
 		file = open(path, "rb")
-		self.dataBytes = self.file.read()
+		self.dataBytes = file.read()
 		file.close()
 		self.dataHex = Byte.bytesToHex(self.dataBytes)
 

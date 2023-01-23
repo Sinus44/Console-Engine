@@ -1,5 +1,7 @@
 from Engine.Input import Input
 from Engine.Element import Element
+from Engine.Logging import Logging
+
 
 class Textbox(Element):
     """[GUI] Текстовое поле"""
@@ -29,17 +31,18 @@ class Textbox(Element):
         self.enable = False
         self.selected = False
 
-    def inputFromEvent(self, event):
+    def inputFromEvent(self,):
         """Обработка нажатий клавиатуры\nПринимает: (Event) event - событие"""
         if not(self.selected): return
-        if event.type == Input.Types.Keyboard:
-            if event.keyboardState == Input.Keyboard.DOWN:
-                if event.keyboardCode == Input.Keyboard.Keys.BACKSPACE:
+        if Input.eventType == Input.Types.Keyboard:
+            Logging.log(Input.keyboardState, Input.Keyboard.DOWN, Input.prevKeyboardState)
+            if Input.keyboardState == Input.Keyboard.DOWN and not Input.prevKeyboardState:
+                if Input.keyboardCode == Input.Keyboard.Keys.BACKSPACE:
                     self.value = self.value[:-1]
 
                 elif len(self.value) < self.maxLength or self.maxLength == 0:
-                    if event.keyboardChar in self.alphabet: # вот это
-                        self.value += str(event.keyboardChar) # пофиксить
+                    if Input.keyboardChar in self.alphabet:
+                        self.value += str(Input.keyboardChar)
                         self.change(self)
 
     def draw(self):
