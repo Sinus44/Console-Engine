@@ -4,7 +4,7 @@ class Style(dict):
     """[GUI] Настройка цветов для GUI элементов"""
 
     def __init__(self):
-        """[GUI] Настройка цветов для GUI элементов"""
+        """конструктор"""
         super().__init__({
 			"text": Color.rgbText(196, 196, 196),
 			"textF": Color.rgbText(255, 255, 255),
@@ -16,7 +16,7 @@ class Style(dict):
 		})
 
     def importFromConfig(self, cfg):
-        """Иморт стилей из файла конфигураций"""
+        """Иморт стилей из файла конфигураций\nПринимает: (Config) cfg - файл конфигурации"""
         for param in ["text", "textF"]:
             rgb = cfg["STYLE"][param].split(" ")
             self[param] = Color.rgbText(rgb[0], rgb[1], rgb[2])

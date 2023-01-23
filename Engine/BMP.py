@@ -4,18 +4,17 @@ class BMP:
 	"""Импорт файлов *.bmp, получение данных из файла и их структуризация"""
 	
 	def __init__(self, path):
-		"""Импорт файлов *.bmp, получение данных из файла и их структуризация"""
+		"""Конструктор\nПринимает: (string) path - путь к файлу"""
 		self.path = path
 
-		self.file = open(path, "rb")
+		file = open(path, "rb")
 		self.dataBytes = self.file.read()
-		self.file.close()
+		file.close()
 		self.dataHex = Byte.bytesToHex(self.dataBytes)
 
 		if Byte.getHexBytesNormal(self.dataHex, 0, 1) != "424d":
 			raise Exception("File type is not BMP")
 
-		self.length = Byte.hexToDec(Byte.getHexBytesReverse(self.dataHex, Byte.hexToDec("2"), Byte.hexToDec("5")))
 		self.pixelDataOffset = Byte.hexToDec(Byte.getHexBytesReverse(self.dataHex, Byte.hexToDec("a"), Byte.hexToDec("d")))
 		self.bmpVersion = Byte.hexToDec(Byte.getHexBytesReverse(self.dataHex, Byte.hexToDec("0e"), Byte.hexToDec("11")))
 

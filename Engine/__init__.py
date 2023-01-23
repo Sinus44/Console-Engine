@@ -21,7 +21,6 @@ from Engine.Sound import Sound
 from Engine.Vector import Vector
 from Engine.Window import Window
 
-
 # GUI
 from Engine.Events import Events
 from Engine.Element import Element

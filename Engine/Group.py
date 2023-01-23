@@ -4,7 +4,7 @@ class Group:
     """[GUI] Группа GUI элементов"""
 
     def __init__(self, screen, x, y, interval=1, maxElements=10):
-        """[GUI] Группа GUI элементов"""
+        """Конструктор\nПринимает: (Winow) screen - окно для отрисовки, (int) x - кооридната x, (int) y - координата y, (int) interval - интервал между элементами, (int) maxElements - максимальное кол-во элеметов для отрисовки"""
         self.screen = screen
         self.x = x
         self.y = y
@@ -14,11 +14,11 @@ class Group:
         self.maxElements = maxElements
 
     def append(self, element):
-        """Добавление элементов в группу"""
+        """Добавление элементов в группу\nПринимает: (Element or any [GUI]) element - элемент для добавления в группу"""
         self.elements.append(element)
     
     def eventHandler(self, event):
-        """Обработка событий для всех элементов в группе"""
+        """Обработка событий для всех элементов в группе\nПринимает: (Event) - событие"""
         for element in self.elements:
             element.intersectionFromEvent(event)
 

@@ -4,16 +4,16 @@ class Checkbox(Element):
     """[GUI] Переключатель"""
     
     def __init__(self, screen, style, x=0, y=0, text="", enable=True, checked=False):
-        """[GUI] Переключатель"""
+        """Коснтруктор\nПринимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (bool) enable - состояние, (bool) checked - отмечен ли чекбокс"""
         super().__init__(screen, style, x, y, text, enable)
         self.checked = checked
 
     def __bool__(self):
-        """Возвращает состояние переключателя"""
+        """Возвращает состояние переключателя\nВозвращает: (bool) - отмечена ли чекбокс"""
         return self.checked
 
     def click(self, obj):
-        """Событие нажатия"""
+        """Событие нажатия\nПринимает: (object) obj - инициатор события"""
         self.checked = not(self.checked)
         self.change(self)
 

@@ -2,13 +2,13 @@ class Config(dict):
 	"""Обработка конфигурационных файлов *.cfg, чтение, запись, автосохранение"""
 
 	def __init__(self, path, autosave=False):
-		"""Обработка конфигурационных файлов *.cfg, чтение, запись, автосохранение"""
+		"""Конструктор\nПринимает: (string) path - путь к cfg файлу, (bool) autosave - автосохранение файла"""
 		super().__init__()
 		self.path = path
 		self.autosave = autosave
 
 	def setSection(self, key, value):
-		"""Установить значение всей секции"""
+		"""Установить значение всей секции\nПринимает: (string) key - имя секции, (string) value - значение секции"""
 		if value == "":
 			self.pop(key)
 		else:
@@ -18,7 +18,7 @@ class Config(dict):
 			self.write()
 
 	def setParam(self, section, key, value):
-		"""Установить значение в запись секции"""
+		"""Установить значение в запись секции\nПринимает: (string) section - имя секции, (string) key - ключ, (string) value - значение записи"""
 		if value == "":
 			self[section].pop(key)
 		else:
@@ -56,7 +56,7 @@ class Config(dict):
 	def write(self):
 		"""Запись в файл"""
 		file = open(self.path, "w")
-		out = ";AUTO GENERATED DONT CHANGE IF NOT SHARISH"
+		out = ";AUTO GENERATED, DONT CHANGE IF DONT KNOW"
 
 		for section in self:
 			out += f"\n[{section}]"

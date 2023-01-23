@@ -5,7 +5,7 @@ class Interval:
 	"""Цикличный вызов функции в соответветсвии с интервалом"""
 
 	def __init__(self, callback, t=1, daemon=False):
-		"""Цикличный вызов функции в соответветсвии с интервалом"""
+		"""Конструктор\nПринимает: (function) callback - функция для вызова, (float) t - время в секундах, (bool) daemon - закрытие потока при закрытии главного потока"""
 		self.on = False
 		self.callback = callback
 		self.time = t

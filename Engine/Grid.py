@@ -4,7 +4,7 @@ class Grid:
     """[GUI] Визуальная сетка"""
 
     def __init__(self, screen, x, y, w, h, columns, strings, style):
-        """[GUI] Визуальная сетка"""
+        """Коструктор\nПринимает: (Window) screen - окно для отрисовки, (int) x - координата x, (int) y - координата y, (int) w - ширина, (int) h - высота, (int) columns - кол-во столбцов, (int) strings - кол-во строк, (Style) style - стиль"""
         self.screen = screen
         self.w = w
         self.h = h
@@ -18,7 +18,7 @@ class Grid:
         self.cellH = Mmath.round((h - (strings - 1)) / strings)
     
     def intersection(self, x, y):
-        """Вовзращает координаты в сетке"""
+        """Вовзращает координаты в сетке\nПринимает: (int) x - координата x, (int) y - координата y\nВозвращает: (tuple_int) - координаты ячейки по которой нажали"""
         x1 = x // self.cellW
         y1 = y // self.cellH
         return (x1, y1)

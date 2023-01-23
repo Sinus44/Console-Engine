@@ -6,7 +6,7 @@ class Table:
     """[GUI] Таблица"""
     
     def __init__(self, screen, style, x, y, w, h):
-        """[GUI] Таблица"""
+        """Конструктор\nПринимает: (Window) screen - окно для отрисовки, (Style) - стиль, (int) x - x координата, (int) y - y координата, (int) w - ширина, (int) h - высота"""
         self.screen = screen
         self.style = style
         self.x = x
@@ -18,6 +18,7 @@ class Table:
         self.strings = []
     
     def resize(self):
+        """Перерасчет размеров таблицы"""
         if len(self.strings):
             self.columns = len(self.strings)
             self.columnsW = Mmath.round((self.w - (self.columns - 1)) / self.columns) 
@@ -26,7 +27,7 @@ class Table:
             self.columnsW = self.w
 
     def click(self, obj):
-        """Событие нажатия"""
+        """Нажатие\nПринимает: (object) obj - инициатор события"""
         if self.focused:
             self.selected = not(self.selected)
             if self.selected:
@@ -39,7 +40,7 @@ class Table:
         self.selected = False
 
     def inputFromEvent(self, event):
-        """Обработка нажатий клавиатуры"""
+        """Обработка нажатий клавиатуры\nПринимает: (Event) event - событие"""
         if not(self.selected): return
         if event.type == Input.Types.Keyboard:
             if event.keyboardState == Input.Keyboard.DOWN:

@@ -98,7 +98,7 @@ class Input:
 		"""События клавиатуры"""
 
 		class Keys:
-			"""Коды клавишь клавиатуры"""
+			"""Коды клавиш клавиатуры"""
 			F1 = 112
 			F2 = 113
 			F3 = 114
@@ -173,7 +173,7 @@ class Input:
 			return f"Type: {self.type}\nmouseType: {self.mouseType}\nMouseKey: {self.mouseKey}\nMouseX: {self.mouseX}\nMouseY: {self.mouseY}\nKeyboardCode: {self.keyboardCode}\nKeyboardChar: {self.keyboardChar}\nKeyboardState: {self.keyboardState}\n"
 
 	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
-		"""Включает получение событий"""
+		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
 		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
 		Input.InputRecord = INPUT_RECORD()
@@ -192,7 +192,7 @@ class Input:
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
 
 	def tick(asyn=True):
-		"""Получение событий, обработка и их запись в массив"""
+		"""Получение событий, обработка и их запись в массив\nПринимает: (bool) asyn - не ждать события"""
 		if not Input.listning: return
 
 		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events), 2 if asyn else 0)
@@ -218,8 +218,8 @@ class Input:
 		"""Очистка массива событий"""
 		Input.EVENTS = []
 
-	def getEvents(tick=False):
-		"""Возвращает события"""
+	def getEvents(tick=True):
+		"""Возвращает события\nПринимает: (bool) tick - авто получение событий"""
 		if tick:
 			Input.tick()
 
