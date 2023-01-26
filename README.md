@@ -20,9 +20,9 @@
 |[EBM](https://github.com/Sinus44/Console-Engine#class-EBM)|Импорт файлов *.ebm, получение данных из файла и их структуризация|
 |[ImageBMP](https://github.com/Sinus44/Console-Engine#class-ImageBMP)|Импорт картинок пригодных для вставки в Window, из формата *.bmp|
 |[ImageEBM](https://github.com/Sinus44/Console-Engine#class-ImageEBM)|Импорт картинок пригодных для вставки в Window, из формата *.ebm|
-|[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
 |[Input](https://github.com/Sinus44/Console-Engine#class-Input)|Обработка входящих событий окна консоли|
 |[Interval](https://github.com/Sinus44/Console-Engine#class-Interval)|Цикличный вызов функции в соответветсвии с интервалом|
+|[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
 |[Mmath](https://github.com/Sinus44/Console-Engine#class-Mmath)|Математические функции|
 |[Output](https://github.com/Sinus44/Console-Engine#class-Output)|Настройка выходного буффера окна консоли|
 |[Perceptron](https://github.com/Sinus44/Console-Engine#class-Perceptron)|Простой нейрон|
@@ -215,17 +215,6 @@
 Принимает: (tuple) color - цвет
 Возвращает: (string) - символ код цвета OR (int) - 0 если alpha канал
 
-## Class Logging
-Запись отладочной информации в файл
-### Методы:
-
-### log()
-Логирование в файл
-Принимает: (*strings) - строки для логгирования
-
-### print()
-Логирование в консольnПринимает: (*strings) - строки для логгирования
-
 ## Class Input
 Обработка входящих событий окна консоли
 ### Методы:
@@ -241,8 +230,7 @@
 Сброс / инициализация переменных
 
 ### tick()
-Получение событий, обработка и их запись в массив
-Принимает: (bool) asyn - не ждать события
+Получение и запись событий
 
 ## Class Interval
 Цикличный вызов функции в соответветсвии с интервалом
@@ -260,6 +248,17 @@
 
 ### function()
 Метод котоый будет запущен в отдельном потоке
+
+## Class Logging
+Запись отладочной информации в файл
+### Методы:
+
+### log()
+Логирование в файл
+Принимает: (*strings) - строки для логгирования
+
+### print()
+Логирование в консольnПринимает: (*strings) - строки для логгирования
 
 ## Class Mmath
 Математические функции

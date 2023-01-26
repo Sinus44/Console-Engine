@@ -35,7 +35,6 @@ class Textbox(Element):
         """Обработка нажатий клавиатуры\nПринимает: (Event) event - событие"""
         if not(self.selected): return
         if Input.eventType == Input.Types.Keyboard:
-            Logging.log(Input.keyboardState, Input.Keyboard.DOWN, Input.prevKeyboardState)
             if Input.keyboardState == Input.Keyboard.DOWN and not Input.prevKeyboardState:
                 if Input.keyboardCode == Input.Keyboard.Keys.BACKSPACE:
                     self.value = self.value[:-1]

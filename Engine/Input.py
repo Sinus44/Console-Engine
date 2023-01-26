@@ -1,7 +1,5 @@
 import ctypes
 from ctypes.wintypes import *
-from Engine.Logging import *
-from Engine.Byte import *
 
 # CTYPES ADAPTATE -------------------------------
 
@@ -157,7 +155,7 @@ class Input:
 		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
 		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
-		Input.InputRecord = INPUT_RECORD()
+		Input.record = INPUT_RECORD()
 		
 		out = 0
 
@@ -176,44 +174,49 @@ class Input:
 
 	def reset():
 		"""Отчистка входного буффера"""
-		prev = 0
+		
+		# Получаем события
 		Input.tick()
-		while int(bytes(Input.events)[0]) != 0:
+
+		# Если кол-во принятых событий не равно 0 то принимаем еще
+		while Input.eventsRecived != False: 
 			Input.tick()
 
+		# Присваиваем переменным стандартные значения
 		Input.varInit()
 	
 	def varInit():
 		"""Сброс / инициализация переменных"""
+		Input.event = 0
 		Input.eventType = 0
 
 		Input.mouseX = 0
 		Input.mouseY = 0
 		Input.mouseKey = 0
-		
+		Input.prevMouseState = False
 		Input.mouseType = 0
 
 		Input.keyboardCode = 0
 		Input.keyboardChar = 0
 		Input.keyboardState = 0
 		Input.prevKeyboardState = False
-		Input.prevMouseState = False
-
-		Input.event = 0
-		Input.eventString = ""
 
 	def tick():
-		"""Получение событий, обработка и их запись в массив\nПринимает: (bool) asyn - не ждать события"""
+		"""Получение и запись событий"""
 
-		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.InputRecord), 1, ctypes.byref(Input.events), 2)
-		record = Input.InputRecord
+		# Принимаем события от консоли
+		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 1, ctypes.byref(Input.events), 2)
 
-		Input.event = record.Event
-		Input.eventType = record.EventType
+		# Определяет есть ли новые события
+		Input.eventsRecived = bool(int(bytes(Input.events)[0]))
 
-		Input.mouseX = Input.event.MouseEvent.dwMousePosition.X # X
-		Input.mouseY = Input.event.MouseEvent.dwMousePosition.Y # Y
-		Input.mouseKey = Input.event.MouseEvent.dwButtonState # какая кнопка клавиатуры нажата
+		# Записываем все в удобные для работы переменные
+		Input.event = Input.record.Event
+		Input.eventType = Input.record.EventType
+
+		Input.mouseX = Input.event.MouseEvent.dwMousePosition.X
+		Input.mouseY = Input.event.MouseEvent.dwMousePosition.Y
+		Input.mouseKey = Input.event.MouseEvent.dwButtonState
 		
 		Input.prevMouseState = Input.mouseType == Input.Mouse.DOWN
 		Input.mouseType = Input.event.MouseEvent.dwEventFlags # колесо / нажатие / движение / двойное нажатие
@@ -222,5 +225,3 @@ class Input:
 		Input.keyboardCode = Input.event.KeyEvent.wVirtualKeyCode # Код кнопки клавиатуры
 		Input.keyboardChar = Input.event.KeyEvent.uChar.UnicodeChar # Символ клавиши
 		Input.keyboardState = Input.event.KeyEvent.bKeyDown if Input.eventType == Input.Types.Keyboard else False # Состояние кнопки
-
-		Input.eventString = f"{Input.mouseX}{Input.mouseY}{Input.mouseKey}{Input.keyboardCode}{Input.keyboardChar}{Input.keyboardState}"
