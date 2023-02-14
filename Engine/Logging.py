@@ -20,4 +20,4 @@ class Logging:
 		
 		for i in text:
 			i = str(i)
-			print(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}{end}")
+			print(f"[{'{:2.0f}'.format(date.hour)}:{'{:2.0f}'.format(date.minute)}:{'{:2.0f}'.format(date.second)}]: {str(i)}", end=end)
