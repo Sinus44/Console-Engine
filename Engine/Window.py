@@ -19,7 +19,7 @@ class Window:
 		for i in range(self.h):
 			s += "".join(self.buffer[i])
 
-		ctypes.windll.kernel32.WriteConsoleW(ctypes.windll.kernel32.GetStdHandle(-11), s, len(s))
+		ctypes.windll.kernel32.WriteConsoleW(ctypes.windll.kernel32.GetStdHandle(-11), s, len(s), None, None)
 
 	def clear(self, fast=True):
 		"""Отчистка вывода в консоль\nПринимает: (bool) fast - если True - сдвиг изображения вверх"""
