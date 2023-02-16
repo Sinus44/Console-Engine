@@ -25,7 +25,6 @@
 |[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
 |[Mmath](https://github.com/Sinus44/Console-Engine#class-Mmath)|Математические функции|
 |[Output](https://github.com/Sinus44/Console-Engine#class-Output)|Настройка выходного буффера окна консоли|
-|[Perceptron](https://github.com/Sinus44/Console-Engine#class-Perceptron)|Простой нейрон|
 |[Performance](https://github.com/Sinus44/Console-Engine#class-Performance)|Замер времени выполнения кода|
 |[Scene](https://github.com/Sinus44/Console-Engine#class-Scene)|Управления отображаемыми сценами|
 |[Sound](https://github.com/Sinus44/Console-Engine#class-Sound)|Воспроизведение звуков из WAV файлов|
@@ -293,42 +292,6 @@
 ### resize()
 Установка размера буффера окна консоли (в символах)
 Принимает: (int) w - ширина окна консоли, (int) h - высота окна консоли
-
-## Class Perceptron
-Простой нейрон
-### Методы:
-
-### \_\_init\_\_()
-Конструктор
-Принимает: (int) inputs - кол-во входных нейронов, (float) learningRate - скорость обучения
-
-### exp()
-Экспонента числа
-Принимает: (float) x - число
-Возвращает: (float) - экспонента числа
-
-### derivative()
-Производная функции активации
-Принимает: (float) x - число
-Возвращает: (float) - производная функии активации
-
-### activation()
-Функция активации
-Принимает: (float) x - число
-Возвращает: (float) - функия активации
-
-### predict()
-Предсказывает выхоное значение исходя из входных данных
-Принимает: (array_float) input - массив входных данных
-
-### learn()
-Обучение нейрона с учителем
-Принимает: (array_float) input - массив входных данных, (float) out - ожидаемое выходное значение
-Возвращает: (float) - ошибка между ожидаемым и фактическим результатом
-
-### learnNoLearer()
-Обучение нейрона с без учителя
-Принимает: (float) err - ошибка нейрона
 
 ## Class Performance
 Замер времени выполнения кода

@@ -1,5 +1,5 @@
 """Многосторонний модуль, для разных задач"""
-# version 9
+# version 9.2.1
 
 # Engine
 from Engine.Admin import Admin
@@ -15,7 +15,6 @@ from Engine.Interval import Interval
 from Engine.Logging import Logging
 from Engine.Mmath import Mmath
 from Engine.Output import Output
-from Engine.Perceptron import Perceptron
 from Engine.Performance import Performance
 from Engine.Scene import Scene
 from Engine.Sound import Sound
