@@ -1,5 +1,6 @@
 import ctypes
 from ctypes.wintypes import *
+import time
 
 # CTYPES ADAPTATE -------------------------------
 
@@ -59,103 +60,11 @@ class INPUT_RECORD_ARRAY(ctypes.Structure):
 class Input:
 	"""Обработка входящих событий окна консоли"""
 
-	EVENTS = []
-
-	spec = " _+=-!@#$%^&*()<>.,~`|/\{}[];:'"
-	numbers = "1234567890"
-	
-	angCaps = "QWERTYUIOPASDFGHJKLZXCVBNM"
-	ang = angCaps.lower()
-
-	ruCaps = "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ"
-	ru = ruCaps.lower()
-
-	class Types:
-		"""Типы событий"""
-		Keyboard = 1
-		Mouse = 2
-		Window = 4
-		Menu = 8
-		Focus = 16
-
-	class Mouse:
-		"""События мыши"""
-		#Mouse type:
-		DOWN = 0
-		MOVE = 1
-		DOUBLECLICK = 2
-		WHEELV = 4
-		WHEELH = 8
-
-		#Mouse key:
-		NULL = 0
-		LEFT = 1
-		RIGHT = 2
-
-	class Keyboard:
-		"""События клавиатуры"""
-
-		class Keys:
-			"""Коды клавиш клавиатуры"""
-			F1 = 112
-			F2 = 113
-			F3 = 114
-			F4 = 115
-			F5 = 116
-			F6 = 117
-			F7 = 118
-			F8 = 119
-			F9 = 120
-			F10 = 121
-			F11 = 122
-			F12 = 123
-
-			SPACE = 32
-			BACKSPACE = 8
-			TAB = 9
-			ENTER = 13
-			SHIFT = 16
-			CTRL = 17
-			ALT = 18
-			CAPS = 20
-			ESC = 27
-			INSERT = 45
-			PAGEUP = 33
-			PAGEDOWN = 34
-			END = 35
-			HOME = 36
-			DELETE = 46
-			PRTSC = 44
-			SCROLLLOCK = 145
-
-			WINL = 91
-			WINR = 92
-
-			LEFT = 37
-			UP = 38
-			RIGHT = 39
-			DOWN = 40
-
-		DOWN = 1
-		UP = 0
-
-	class Window:
-		"""События окна"""
-		pass
-
-	class Menu:
-		"""События меню"""
-		pass
-
-	class Focus:
-		"""События фокуса"""
-		pass
-
-	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False):
+	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False, handle=None):
 		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
-		Input.handle = ctypes.windll.kernel32.GetStdHandle(-10)
+		Input.handle = handle or ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
-		Input.record = INPUT_RECORD()
+		Input.record = (INPUT_RECORD * 128)()
 		
 		out = 0
 
@@ -167,61 +76,49 @@ class Input:
 		if insert: out += 32
 		if quickEdit: out += 64
 		if extended: out += 128
-
-		Input.varInit()
-
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
-
-	def reset():
-		"""Отчистка входного буффера"""
-		
-		# Получаем события
-		Input.tick()
-
-		# Если кол-во принятых событий не равно 0 то принимаем еще
-		while Input.eventsRecived != False: 
-			Input.tick()
-
-		# Присваиваем переменным стандартные значения
-		Input.varInit()
-	
-	def varInit():
-		"""Сброс / инициализация переменных"""
-		Input.event = 0
-		Input.eventType = 0
-
-		Input.mouseX = 0
-		Input.mouseY = 0
-		Input.mouseKey = 0
-		Input.prevMouseState = False
-		Input.mouseType = 0
-
-		Input.keyboardCode = 0
-		Input.keyboardChar = 0
-		Input.keyboardState = 0
-		Input.prevKeyboardState = False
 
 	def tick():
 		"""Получение и запись событий"""
 
-		# Принимаем события от консоли
-		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 1, ctypes.byref(Input.events), 2)
+		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 128, ctypes.byref(Input.events), 2)
 
-		# Определяет есть ли новые события
-		Input.eventsRecived = bool(int(bytes(Input.events)[0]))
+		Input.event_count = int(bytes(Input.events)[0])
 
-		# Записываем все в удобные для работы переменные
-		Input.event = Input.record.Event
-		Input.eventType = Input.record.EventType
+		events_list = []
+		for i in range(Input.event_count):
+			event_dict = {}
+			event_record = Input.record[i]
+			event_type = event_record.EventType 
+			event = event_record.Event
 
-		Input.mouseX = Input.event.MouseEvent.dwMousePosition.X
-		Input.mouseY = Input.event.MouseEvent.dwMousePosition.Y
-		Input.mouseKey = Input.event.MouseEvent.dwButtonState
-		
-		Input.prevMouseState = Input.mouseType == Input.Mouse.DOWN
-		Input.mouseType = Input.event.MouseEvent.dwEventFlags # колесо / нажатие / движение / двойное нажатие
+			# Event Type classification
+			if event_type == 1:
+				event_type = "keyboard"
 
-		Input.prevKeyboardState = Input.keyboardState if Input.eventType == Input.Types.Keyboard else False
-		Input.keyboardCode = Input.event.KeyEvent.wVirtualKeyCode # Код кнопки клавиатуры
-		Input.keyboardChar = Input.event.KeyEvent.uChar.UnicodeChar # Символ клавиши
-		Input.keyboardState = Input.event.KeyEvent.bKeyDown if Input.eventType == Input.Types.Keyboard else False # Состояние кнопки
+			elif event_type == 2:
+				event_type = "mouse"
+
+			elif event_type == 4:
+				event_type = "window"
+
+			elif event_type == 8:
+				event_type = "menu"
+
+			elif event_type == 16:
+				event_type = "focus"
+
+			event_dict["type"] = event_type
+
+			event_dict["mouse_type"] = event.MouseEvent.dwEventFlags
+			event_dict["x"] = event.MouseEvent.dwMousePosition.X
+			event_dict["y"] = event.MouseEvent.dwMousePosition.Y
+			event_dict["mouse_key"] = event.MouseEvent.dwButtonState
+
+			event_dict["key_code"] = event.KeyEvent.wVirtualKeyCode
+			event_dict["key_char"] = event.KeyEvent.uChar.UnicodeChar
+			event_dict["key_state"] = event.KeyEvent.bKeyDown
+
+			events_list.append(event_dict)
+
+		return events_list
