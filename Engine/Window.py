@@ -4,7 +4,7 @@ import time
 from Engine.Console import Console
 
 class Window:
-	"""Изображение в консоли"""
+	"""Основной класс для работы с графикой в консоли"""
 
 	def __init__(self, w:int, h:int):
 		"""Принимает консоль с которой необходимо взаимодействовать"""
@@ -49,32 +49,32 @@ class Window:
 				self.buffer[i].append(symbol)
 
 	def point(self, x:int, y:int, symbol:int="*"):
-		"""Установка символа в буффер по координатам\nПринимает: (int) x - координата x, (int) y - координата y, (string) symbol - символ для заливки"""
+		"""Установка символа в буффер по координатам"""
 		if (0 <= x < self.w) and (0 <= y < self.h):
 				self.buffer[y][x] = symbol
 
 	def rectFill(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:str="*"):
-		"""Заполненный прямоугольник в буффер\nПринимает: (int) x - координата x, (int) y - координата y, (int) w - ширина, (int) h - высота, (string) symbol - символ для заливки"""
+		"""Заполненный прямоугольник в буффер"""
 		for i in range(h):
 			for j in range(w):
 				self.point(j+x, i+y, symbol)
 
 	def rect(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:str="*"):
-		"""Пустотелый прямоугольник в буффер\nПринимает: (int) x - координата x, (int) y - координата y, (int) w - ширина, (int) h - высота, (string) symbol - символ для заливки"""
+		"""Пустотелый прямоугольник в буффер"""
 		for i in range(h):
 			for j in range(w):
 				if i == 0 or i == h-1 or j == 0 or j == w - 1:
 					self.point(j + x, i + y, symbol)
 
 	def circleFill(self, x:int=0, y:int=0, r:int=1, symbol:str="*"):
-		"""Залитый круг в буффер\nПринимает: (int) x - координата x, (int) y - координата y, (int) r - радиус, (string) symbol - символ для заливки"""
+		"""Залитый круг в буффер"""
 		for i in range(self.h):
 			for j in range(self.w):
 				if (i - y) ** 2 + (j - x) **2  <= r ** 2:
 					self.point(j, i, symbol)
 
 	def circle(self, x=0, y=0, r=1, symbol="*"):
-		"""Пустотелый круг в буффер\nПринимает: (int) x - координата x, (int) y - координата y, (int) r - радиус, (string) symbol - символ для заливки"""
+		"""Пустотелый круг в буффер"""
 		disp_x = x
 		disp_y = y
 		x = 0
@@ -102,7 +102,7 @@ class Window:
 			y -= 1
 
 	def line(self, x1=0, y1=0, x2=0, y2=0, symbol="*"):
-		"""Линия по координатам\nПринимает: (int) x1 - координата x1, (int) y1 - координата y1, (int) x2 - координата x2, (int) y2 - координата y2, (string) symbol - символ для заливки"""
+		"""Линия по координатам"""
 		delX = abs(x2 - x1)
 		delY = abs(y2 - y1)
 
@@ -129,19 +129,18 @@ class Window:
 				error += delX
 				y1 += signY
 
-	def paste(self, window, x=0, y=0):
-		"""Вставка буффера другого объекта в текущий\nПринимает: (Window) - Окно из которого копировать, (int) x - кооридната x, (int) y - коорината y"""
-		if x + window.w > self.w or y + window.h > self.h:
-			return
+	def paste(self, buffer, x=0, y=0):
+		"""Вставка буффера другого объекта в текущий"""
 
 		for i in range(len(window.buffer)):
 			for j in range(len(window.buffer[0])):
 				if window.buffer[i][j] == 0:
 					continue
+				
 				self.buffer[i+y][j+x] = window.buffer[i][j]
 
 	def text(self, x:int, y:int, text:str="TEXT", text_prefix:str="", symbol_prefix:str="", text_postfix:str="", symbol_postfix:str=""):
-		"""Текст\nПринимает: (string) text - текст, (int) x - кооридната x, (int) y - коорината y, (string) wordPrefix - префикс перед текстом, (string) symbolPrefix - префикс перед символом, (string) wordPostfix - постфикс после текста, (string) symbolPostfix - постфикс после символа"""
+		"""Текст"""
 		text = str(text)
 		x = int(x)
 		y = int(y)

@@ -30,6 +30,7 @@ class Scene_Control:
 		self.scenes_list[self.selected].play()
 
 class Scene:
+	"""Экземпляр сцены"""
 	def __init__(self):
 		...
 

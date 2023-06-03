@@ -2,8 +2,7 @@ import winsound
 
 class Sound:
     """Воспроизведение звуков из WAV файлов"""
-    def __init__(self, filePath):
-        """Конструктор\nПринимает: (string) filePath - Путь к файлу для воспроизведения"""
+    def __init__(self, filePath:str):
         self.filePath = filePath
 
     def play(self):

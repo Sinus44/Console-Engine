@@ -19,6 +19,8 @@ class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
     ]
 
 class Console:
+	"""Работа с отдельным окном консоли"""
+		
 	def __init__(self):
 		self.id = random.randint(1000, 9999)
 		self.pipe_out_name = r"\\.\pipe\consoleout" + str(self.id)
@@ -111,36 +113,3 @@ class Console:
 
 	def __del__(self):
 		self.close()
-
-class Root_Console:
-	def __init__(self):
-		...
-
-	def print(self, data:str):
-		print(data, end="")
-
-	def set_title(self, title:str):
-		ctypes.windll.kernel32.SetConsoleTitleW(title)
-
-	def set_size(self, w:int, h:int):
-		os.system(f'mode con cols={w} lines={h}')
-
-	def set_icon(self, path:str):
-		hwnd = ctypes.windll.kernel32.GetConsoleWindow()
-		icon_handle = ctypes.windll.user32.LoadImageW(None, path, 1, 0, 0, 16)
-		ctypes.windll.user32.SendMessageW(hwnd, 0x80, 0, icon_handle)
-
-	def get_size(self):
-		csbi = CONSOLE_SCREEN_BUFFER_INFO()
-		ctypes.windll.kernel32.GetConsoleScreenBufferInfo(ctypes.windll.kernel32.GetStdHandle(-11), ctypes.byref(csbi))
-
-		width = csbi.srWindow.Right - csbi.srWindow.Left + 1
-		height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1
-		return (width, height)
-
-	def set_size(self, w:int, h:int):
-		if w > 255 or h > 255: return
-		os.system(f'mode con cols={w} lines={h-1}')
-
-	def close(self):
-		...
