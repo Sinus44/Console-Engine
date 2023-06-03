@@ -9,6 +9,8 @@
 - Python 3.10.0
 - Windows 10 (22H2)
 
+# ДОКУМЕНТАЦИЯ НЕ АКТУАЛЬНА
+
 # Classes
 |[Classes](https://github.com/Sinus44/Console-Engine#Classes)|Описание|
 |-|-|
