@@ -1,6 +1,7 @@
 # _CONSOLE-ENGINE_
 Описание: Описание:
 Многосторонний модуль, для разных задач
+
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
