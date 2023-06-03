@@ -4,7 +4,7 @@ import time
 from Engine.Console import Console
 
 class Window:
-	"""Основной класс для работы с графикой в консоли"""
+	"""Изображение в консоли"""
 
 	def __init__(self, w:int, h:int):
 		"""Принимает консоль с которой необходимо взаимодействовать"""
@@ -13,29 +13,35 @@ class Window:
 		self.input_tick = self.console.input_tick
 		self.set_title = self.console.set_title
 		self.set_icon = self.console.set_icon
+		self.close = self.console.close
 
 		self.size = self.console.set_size(w, h)
-		#time.sleep(1)
 		self.console.input_init()
 
 		self.w = w
 		self.h = h
 		self.buffer = [[]]
+		self.prev_frame = None
 
-	def set_size(self, w, h):
+	def set_size(self, w:int, h:int):
+		"""Изменение размеров окна"""
 		self.w = w
 		self.h = h
 		self.console.set_size(self.w, self.h)
 
-	def print(self) -> None:
+	def print(self):
 		"""Вывод буффера в консоль"""
+		if self.prev_frame and self.prev_frame == self.buffer:
+			return
+
 		s = ""
 		for string in self.buffer:
 			s = s +"".join(string)
 
 		self.console.print(s)
+		self.prev_frame = self.buffer
 
-	def clear(self) -> None:
+	def clear(self):
 		"""Отчистка вывода в консоль"""
 		self.fill("")
 
@@ -70,7 +76,7 @@ class Window:
 		"""Залитый круг в буффер"""
 		for i in range(self.h):
 			for j in range(self.w):
-				if (i - y) ** 2 + (j - x) **2  <= r ** 2:
+				if (i - y) ** 2 + (j - x) ** 2  <= r ** 2:
 					self.point(j, i, symbol)
 
 	def circle(self, x=0, y=0, r=1, symbol="*"):
@@ -88,9 +94,9 @@ class Window:
 			self.point(disp_x - x, disp_y - y, symbol)
 
 			error = 2 * (delta + y) - 1
-			if ((delta < 0) and (error <=0)):
-				x+=1
-				delta = delta + (2*x+1)
+			if ((delta < 0) and (error <= 0)):
+				x += 1
+				delta = delta + (2 * x + 1)
 				continue
 			error = 2 * (delta - x) - 1
 			if ((delta > 0) and (error > 0)):
@@ -129,15 +135,13 @@ class Window:
 				error += delX
 				y1 += signY
 
-	def paste(self, buffer, x=0, y=0):
+	def paste(self, window, x=0, y=0):
 		"""Вставка буффера другого объекта в текущий"""
 
 		for i in range(len(window.buffer)):
 			for j in range(len(window.buffer[0])):
-				if window.buffer[i][j] == 0:
-					continue
-				
-				self.buffer[i+y][j+x] = window.buffer[i][j]
+				self.point(j + x, i + y, buffer[i][j])
+				self.buffer[i + y][j + x] = buffer[i][j]
 
 	def text(self, x:int, y:int, text:str="TEXT", text_prefix:str="", symbol_prefix:str="", text_postfix:str="", symbol_postfix:str=""):
 		"""Текст"""
@@ -148,4 +152,4 @@ class Window:
 			return
 
 		for i in range(len(text)):
-			self.buffer[y][x+i] = (text_prefix if i == 0 else "") + symbol_prefix + text[i] + symbol_postfix + (text_postfix if i == len(text) - 1 else "")
+			self.buffer[y][x + i] = (text_prefix if i == 0 else "") + symbol_prefix + text[i] + symbol_postfix + (text_postfix if i == len(text) - 1 else "")

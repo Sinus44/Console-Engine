@@ -3,8 +3,8 @@ import datetime
 class Logging:
 	"""Запись отладочной информации в файл"""
 
-	def log(*text:str):
-		"""Логирование в файл"""
+	def log(*text):
+		"""Логирование в файл\nПринимает: (*strings) - строки для логгирования"""
 		date = datetime.datetime.now()
 		file = open(f"{date.day}{date.month}{date.year}.log", "a")
 
@@ -14,8 +14,8 @@ class Logging:
 
 		file.close()
 
-	def print(*text:str, end:str="\n"):
-		"""Логирование в консоль"""
+	def print(*text, end="\n"):
+		"""Логирование в консольnПринимает: (*strings) - строки для логгирования"""
 		date = datetime.datetime.now()
 		
 		for i in text:

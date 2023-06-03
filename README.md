@@ -13,22 +13,22 @@
 |[Classes](https://github.com/Sinus44/Console-Engine#Classes)|Описание|
 |-|-|
 |[Color](https://github.com/Sinus44/Console-Engine#class-Color)|Работа с цветами для консоли|
-|[Console](https://github.com/Sinus44/Console-Engine#class-Console)|Работа с отдельным окном консоли|
+|[Console](https://github.com/Sinus44/Console-Engine#class-Console)|Создание дополнительного отдельного окна консоли|
 |[Input](https://github.com/Sinus44/Console-Engine#class-Input)|Обработка входящих событий окна консоли|
 |[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
+|[Output](https://github.com/Sinus44/Console-Engine#class-Output)|Настройка выходного буффера окна консоли|
 |[Performance](https://github.com/Sinus44/Console-Engine#class-Performance)|Замер времени выполнения кода|
 |[Scene](https://github.com/Sinus44/Console-Engine#class-Scene)|Экземпляр сцены|
 |[Scene_Control](https://github.com/Sinus44/Console-Engine#class-Scene_Control)|Управления отображаемыми сценами|
 |[Sound](https://github.com/Sinus44/Console-Engine#class-Sound)|Воспроизведение звуков из WAV файлов|
-|[Window](https://github.com/Sinus44/Console-Engine#class-Window)|Основной класс для работы с графикой в консоли|
-|[Events](https://github.com/Sinus44/Console-Engine#class-Events)|[GUI] Шаблоны событий для GUI элементов|
+|[Window](https://github.com/Sinus44/Console-Engine#class-Window)|Изображение в консоли|
 |[Element](https://github.com/Sinus44/Console-Engine#class-Element)|[GUI] База для GUI элементов|
 |[Border](https://github.com/Sinus44/Console-Engine#class-Border)|[GUI] Рамка для изображения|
 |[Button](https://github.com/Sinus44/Console-Engine#class-Button)|[GUI] Кнопка|
-|[Checkbox](https://github.com/Sinus44/Console-Engine#class-Checkbox)|[GUI] Переключатель|
+|[Checkbox](https://github.com/Sinus44/Console-Engine#class-Checkbox)|[GUI] Чекбокс - Переключатель|
 |[Textbox](https://github.com/Sinus44/Console-Engine#class-Textbox)|[GUI] Текстовое поле|
 |[Group](https://github.com/Sinus44/Console-Engine#class-Group)|[GUI] Группа GUI элементов|
-|[Frame](https://github.com/Sinus44/Console-Engine#class-Frame)|[GUI] Фона|
+|[Frame](https://github.com/Sinus44/Console-Engine#class-Frame)|[GUI] Фон|
 |[Grid](https://github.com/Sinus44/Console-Engine#class-Grid)|[GUI] Визуальная сетка|
 |[Style](https://github.com/Sinus44/Console-Engine#class-Style)|[GUI] Настройка цветов для GUI элементов|
 |[Label](https://github.com/Sinus44/Console-Engine#class-Label)|[GUI] Текст|
@@ -41,16 +41,16 @@
 ### rgb\_background(r:int, g:int, b:int)
 Возвращает: str
 Описание:
-Возвращает символ-код цвета фона
+Возвращает символ-код установки цвета фона
 
 ### rgb\_text(r:int, g:int, b:int)
 Возвращает: str
 Описание:
-Возвращает символ-код цвета основного текста
+Возвращает символ-код установки цвета основного текста
 
 ## Class Console
 Описание:
-Работа с отдельным окном консоли
+Создание дополнительного отдельного окна консоли
 ### Методы:
 
 ### \_\_init\_\_()
@@ -59,43 +59,53 @@
 
 ### \_send\_()
 
-
+Описание:
+Байтовая отправка команд
 
 ### \_get\_()
 
-
+Описание:
+Байтовое принятие команд
 
 ### input\_init()
 
-
+Описание:
+Инициализация ввода
 
 ### input\_tick()
 
-
+Описание:
+Получение ивентов
 
 ### print()
 
-
+Описание:
+Вывод в консоль
 
 ### set\_size(w:int, h:int)
 
-
+Описание:
+Изменение размера консоли
 
 ### set\_title(title:str)
 
-
+Описание:
+Смена заголовка
 
 ### set\_icon(path:str)
 
-
+Описание:
+Смена иконки
 
 ### close()
 
-
+Описание:
+Закрытие окна
 
 ### get\_size()
 
-
+Описание:
+Получение размеров окна
 
 ### \_\_del\_\_()
 
@@ -110,6 +120,7 @@
 
 Описание:
 Включает получение событий
+Принимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit
 
 ### tick()
 
@@ -121,15 +132,31 @@
 Запись отладочной информации в файл
 ### Методы:
 
-### log(text:str)
+### log()
 
 Описание:
 Логирование в файл
+Принимает: (*strings) - строки для логгирования
 
-### print(text:str, end:str)
+### print()
 
 Описание:
-Логирование в консоль
+Логирование в консольnПринимает: (*strings) - строки для логгирования
+
+## Class Output
+Описание:
+Настройка выходного буффера окна консоли
+### Методы:
+
+### init(handle:int, mode:int)
+Возвращает: bool
+Описание:
+Иницаилизация окна консоли
+
+### get\_title()
+Возвращает: str
+Описание:
+Получение заголовка окна консоли
 
 ## Class Performance
 Описание:
@@ -142,14 +169,17 @@
 Указывает начальное время отсчета
 
 ### time()
-Возвращает: float
+
 Описание:
 Возвращает время прошедшее с точки отсчета
+Возвращает: (float) - время в секундах
 
-### function(repeats:int, count:int)
-Возвращает: float
+### function()
+
 Описание:
 Возвращает время выполнения функции
+Принимает: (function) f - функция для тестирования, (int) repeats - кол-во повторений 1го замера, (int) count - кол-во замеров
+Возвращает: (float) - время в секундах
 
 ## Class Scene
 Описание:
@@ -191,7 +221,7 @@
 Описание:
 Добавление сцены
 
-### addFromDict(scenes:dict)
+### add\_from\_dict(scenes:dict)
 
 Описание:
 Импорт сцен из словаря
@@ -201,12 +231,22 @@
 Описание:
 Воспроизведение сцены
 
+### remove(name:str)
+
+Описание:
+Удаление сцены из списка
+
+### remove\_all()
+
+Описание:
+Удаление всех сцен из списка
+
 ## Class Sound
 Описание:
 Воспроизведение звуков из WAV файлов
 ### Методы:
 
-### \_\_init\_\_(filePath:str)
+### \_\_init\_\_(file_path:str)
 
 
 
@@ -222,7 +262,7 @@
 
 ## Class Window
 Описание:
-Основной класс для работы с графикой в консоли
+Изображение в консоли
 ### Методы:
 
 ### \_\_init\_\_(w:int, h:int)
@@ -230,9 +270,10 @@
 Описание:
 Принимает консоль с которой необходимо взаимодействовать
 
-### set\_size()
+### set\_size(w:int, h:int)
 
-
+Описание:
+Изменение размеров окна
 
 ### print()
 
@@ -289,35 +330,6 @@
 Описание:
 Текст
 
-## Class Events
-Описание:
-[GUI] Шаблоны событий для GUI элементов
-### Методы:
-
-### click()
-
-Описание:
-Нажатие
-Принимает: (object) obj - инициатор события
-
-### change()
-
-Описание:
-Изменение состояние
-Принимает: (object) obj - инициатор события
-
-### focus()
-
-Описание:
-Наведение мышью на элемент
-Принимает: (object) obj - инициатор события
-
-### select()
-
-Описание:
-Выбор элемента
-Принимает: (object) obj - инициатор события
-
 ## Class Element
 Описание:
 [GUI] База для GUI элементов
@@ -325,37 +337,66 @@
 
 ### \_\_init\_\_()
 
-Описание:
-Коснтруктор
-Принимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (bool) enable - состояние, (bool) visible - отрисовывать ли элемент
+
 
 ### block()
 
 Описание:
 Блокировка элемента
 
-### intersectionFromEvent()
-
-Описание:
-Проверка на пересечение с мышью из события
-(Event) - событие
-
 ### intersection()
 
 Описание:
 Проверка на пересечение по координатам
-Принимает: (int) x - координата x, (int) y - координата y
+
+### event()
+
+Описание:
+Передайте ивент для выполнения биндов
+
+### on\_hover()
+
+Описание:
+Наведение мышью на элемент
+
+### no\_hover()
+
+Описание:
+Ивент если мышь более не наведена на элемент
+
+### on\_mouse\_up()
+
+Описание:
+Ивент отпускания кнопки мыши
+
+### on\_left\_click()
+
+Описание:
+Ивент нажатия ЛКМ
+
+### on\_right\_click()
+
+Описание:
+Ивент нажатия ЛКМ
+
+### on\_change()
+
+Описание:
+Изменение состояние
+
+### on\_select()
+
+Описание:
+Выбор элемента
 
 ## Class Border
 Описание:
 [GUI] Рамка для изображения
 ### Методы:
 
-### \_\_init\_\_()
+### \_\_init\_\_(window:object, style:object, symbol:str)
 
-Описание:
-Конструктор
-Принимает: (Window) screen - окно в котором необдимо рисовать, (Style) style - стиль, (string) symbol - символ
+
 
 ### draw()
 
@@ -367,6 +408,21 @@
 [GUI] Кнопка
 ### Методы:
 
+### on\_hover()
+
+Описание:
+Мышь наведена
+
+### no\_hover()
+
+Описание:
+Более мышь не наведена
+
+### format()
+
+Описание:
+Формат кнопки
+
 ### draw()
 
 Описание:
@@ -374,26 +430,18 @@
 
 ## Class Checkbox
 Описание:
-[GUI] Переключатель
+[GUI] Чекбокс - Переключатель
 ### Методы:
-
-### \_\_init\_\_()
-
-Описание:
-Коснтруктор
-Принимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (bool) enable - состояние, (bool) checked - отмечен ли чекбокс
 
 ### \_\_bool\_\_()
 
 Описание:
 Возвращает состояние переключателя
-Возвращает: (bool) - отмечена ли чекбокс
 
-### click()
+### on\_left\_click()
 
 Описание:
 Событие нажатия
-Принимает: (object) obj - инициатор события
 
 ### draw()
 
@@ -443,23 +491,19 @@
 [GUI] Группа GUI элементов
 ### Методы:
 
-### \_\_init\_\_()
+### \_\_init\_\_(window:object, x:int, y:int, interval:int)
 
-Описание:
-Конструктор
-Принимает: (Winow) screen - окно для отрисовки, (int) x - кооридната x, (int) y - координата y, (int) interval - интервал между элементами, (int) maxElements - максимальное кол-во элеметов для отрисовки
 
-### append()
+
+### append(element:object)
 
 Описание:
 Добавление элементов в группу
-Принимает: (Element or any [GUI]) element - элемент для добавления в группу
 
 ### eventHandler()
 
 Описание:
 Обработка событий для всех элементов в группе
-Принимает: (Event) - событие
 
 ### click()
 
@@ -478,13 +522,12 @@
 
 ## Class Frame
 Описание:
-[GUI] Фона
+[GUI] Фон
 ### Методы:
 
-### \_\_init\_\_()
+### \_\_init\_\_(window:object, style:object)
 
-Описание:
-[GUI] Фон 
+
 
 ### draw()
 
@@ -496,18 +539,14 @@
 [GUI] Визуальная сетка
 ### Методы:
 
-### \_\_init\_\_()
+### \_\_init\_\_(window:object, x:int, y:int, w:int, h:int, columns:int, strings:int, style:object)
 
-Описание:
-Коструктор
-Принимает: (Window) screen - окно для отрисовки, (int) x - координата x, (int) y - координата y, (int) w - ширина, (int) h - высота, (int) columns - кол-во столбцов, (int) strings - кол-во строк, (Style) style - стиль
 
-### intersection()
+
+### intersection(x:int, y:int)
 
 Описание:
 Вовзращает координаты в сетке
-Принимает: (int) x - координата x, (int) y - координата y
-Возвращает: (tuple_int) - координаты ячейки по которой нажали
 
 ### draw()
 
@@ -519,27 +558,14 @@
 [GUI] Настройка цветов для GUI элементов
 ### Методы:
 
-### \_\_init\_\_()
+### \_\_init\_\_(text:str, text_fill:str, background:str, background_fill:str, disable:str)
 
-Описание:
-конструктор
 
-### importFromConfig()
-
-Описание:
-Иморт стилей из файла конфигураций
-Принимает: (Config) cfg - файл конфигурации
 
 ## Class Label
 Описание:
 [GUI] Текст
 ### Методы:
-
-### \_\_init\_\_()
-
-Описание:
-Коснтруктор
-Принимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (int) maxLength - максимальная длинна текста в символах, (bool) enable - состояние, (bool) visible - отрисовывать ли элемент
 
 ### draw()
 

@@ -1,11 +1,10 @@
 class Frame:
-	"""[GUI] Фона"""
+	"""[GUI] Фон"""
 	
-	def __init__(self):
-		"""[GUI] Фон """
-		self.root = None
-		self.style = None
+	def __init__(self, window:object, style:object):
+		self.window = window
+		self.style = style
 	
 	def draw(self):
 		"""Отрисовка"""
-		self.screen.fill(self.style["background"] + " ")
+		self.window.fill(self.style.background + " ")
