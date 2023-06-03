@@ -35,8 +35,8 @@ pipe_out = win32pipe.CreateNamedPipe(
 	win32pipe.PIPE_ACCESS_DUPLEX, # доступ на чтение и запись
 	win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
 	1, # количество экземпляров канала
-	1024 * 1024, # размер выходного буфера
-	1024 * 1024, # размер входного буфера
+	1024 * 1024 * 32, # размер выходного буфера
+	1024 * 1024 * 32, # размер входного буфера
 	0, # таймаут на соединение
 	None # защита по умолчанию
 )
@@ -48,7 +48,7 @@ ctypes.windll.kernel32.SetConsoleMode(ctypes.windll.kernel32.GetStdHandle(-11), 
 
 while enable:
 	try:
-		message = win32file.ReadFile(pipe_out, 1024 * 1024)
+		message = win32file.ReadFile(pipe_out, 1024 * 1024 * 32)
 	except:
 		enable = False
 		quit()

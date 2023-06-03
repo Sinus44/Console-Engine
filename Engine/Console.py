@@ -30,7 +30,7 @@ class Console:
 			self.pipe_in_name,
 			win32pipe.PIPE_ACCESS_DUPLEX,
 			win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
-			1, 1024 * 1024, 1024 * 1024, 0, None
+			1, 1024 * 1024 * 32, 1024 * 1024 * 32, 0, None
 		)
 
 		threading.Thread(target=os.system, args=[f"start py ./engine/sub_console.py {self.id}"], daemon=False).start()
@@ -62,7 +62,7 @@ class Console:
 		"""Байтовое принятие команд"""
 		if not self.enable: return
 		try:
-			return win32file.ReadFile(self.pipe_in, 1024 * 1024)
+			return win32file.ReadFile(self.pipe_in, 1024 * 1024 * 32)
 		except:
 			self.enable = False
 

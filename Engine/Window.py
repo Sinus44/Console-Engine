@@ -32,7 +32,7 @@ class Window:
 	def print(self):
 		"""Вывод буффера в консоль"""
 		if self.prev_frame and self.prev_frame == self.buffer:
-			return
+			...#return
 
 		s = ""
 		for string in self.buffer:
@@ -55,9 +55,11 @@ class Window:
 				self.buffer[i].append(symbol)
 
 	def point(self, x:int, y:int, symbol:int="*"):
+		x = int(x)
+		y = int(y)
 		"""Установка символа в буффер по координатам"""
 		if (0 <= x < self.w) and (0 <= y < self.h):
-				self.buffer[y][x] = symbol
+			self.buffer[y][x] = symbol
 
 	def rectFill(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:str="*"):
 		"""Заполненный прямоугольник в буффер"""
