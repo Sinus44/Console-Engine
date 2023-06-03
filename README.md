@@ -1,5 +1,5 @@
 # _CONSOLE-ENGINE_
-Описание: Описание:
+Описание:
 Многосторонний модуль, для разных задач
 
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
