@@ -10,4 +10,4 @@ class Label(Element):
     def draw(self):
         """Отрисовка"""
         if self.visible:
-            self.screen.text(self.text[:self.maxLength], self.x, self.y, wordPrefix=self.style["background"] + self.style["text"])
+            self.screen.text(self.x, self.y, self.text[:self.maxLength], text_prefix=self.style["background"] + self.style["text"])

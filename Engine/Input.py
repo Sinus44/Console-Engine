@@ -51,10 +51,6 @@ class INPUT_RECORD(ctypes.Structure):
     _fields_ = [("EventType", SHORT),
                 ("Event", INPUT_UNION)]
 
-#RECORDS ARRAY
-class INPUT_RECORD_ARRAY(ctypes.Structure):
-	_fields_ = [("Records", INPUT_RECORD * 64)]
-
 # -----------------------------------------------
 
 class Input:
@@ -64,7 +60,7 @@ class Input:
 		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
 		Input.handle = handle or ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
-		Input.record = (INPUT_RECORD * 128)()
+		Input.record = (INPUT_RECORD * 32)()
 		
 		out = 0
 
@@ -81,7 +77,7 @@ class Input:
 	def tick():
 		"""Получение и запись событий"""
 
-		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 128, ctypes.byref(Input.events), 2)
+		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 16, ctypes.byref(Input.events), 2)
 
 		Input.event_count = int(bytes(Input.events)[0])
 

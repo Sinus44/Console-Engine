@@ -35,8 +35,8 @@ pipe_out = win32pipe.CreateNamedPipe(
 	win32pipe.PIPE_ACCESS_DUPLEX, # доступ на чтение и запись
 	win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
 	1, # количество экземпляров канала
-	65536, # размер выходного буфера
-	65536, # размер входного буфера
+	1024 * 1024, # размер выходного буфера
+	1024 * 1024, # размер входного буфера
 	0, # таймаут на соединение
 	None # защита по умолчанию
 )
@@ -48,7 +48,7 @@ ctypes.windll.kernel32.SetConsoleMode(ctypes.windll.kernel32.GetStdHandle(-11), 
 
 while enable:
 	try:
-		message = win32file.ReadFile(pipe_out, 65536)
+		message = win32file.ReadFile(pipe_out, 1024 * 1024)
 	except:
 		enable = False
 		quit()
@@ -87,7 +87,8 @@ while enable:
 
 	elif command == 7:
 		data = ((2).to_bytes(1, "little")) + bytes(json.dumps(Input.tick()), "utf-8")
+		#print(len(data))
 		win32file.WriteFile(pipe_in, data)
 
 	elif command == 8:
-		Input.init(extended=False, mouseEvents=True, useHotkey=False)
+		Input.init(extended=True, mouseEvents=True, useHotkey=False)

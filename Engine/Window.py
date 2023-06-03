@@ -1,5 +1,6 @@
 import ctypes
 import os
+import time
 from Engine.Console import Console
 
 class Window:
@@ -9,12 +10,13 @@ class Window:
 		"""Принимает консоль с которой необходимо взаимодействовать"""
 		self.console = Console()
 
-		self.input_init = self.console.input_init
 		self.input_tick = self.console.input_tick
 		self.set_title = self.console.set_title
 		self.set_icon = self.console.set_icon
-		
+
 		self.size = self.console.set_size(w, h)
+		#time.sleep(1)
+		self.console.input_init()
 
 		self.w = w
 		self.h = h
@@ -141,6 +143,8 @@ class Window:
 	def text(self, x:int, y:int, text:str="TEXT", text_prefix:str="", symbol_prefix:str="", text_postfix:str="", symbol_postfix:str=""):
 		"""Текст\nПринимает: (string) text - текст, (int) x - кооридната x, (int) y - коорината y, (string) wordPrefix - префикс перед текстом, (string) symbolPrefix - префикс перед символом, (string) wordPostfix - постфикс после текста, (string) symbolPostfix - постфикс после символа"""
 		text = str(text)
+		x = int(x)
+		y = int(y)
 		if (x < 0 or y < 0) or (x + len(text) > self.w):
 			return
 

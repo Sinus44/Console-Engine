@@ -30,8 +30,8 @@ class Console:
 			win32pipe.PIPE_ACCESS_DUPLEX,
 			win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
 			1,
-			65536,
-			65536,
+			1024 * 1024,
+			1024 * 1024,
 			0,
 			None
 		)
@@ -60,6 +60,9 @@ class Console:
 		except:
 			self.enable = False
 
+	def _get_(self):
+		if not self.enable: return
+		return win32file.ReadFile(self.pipe_in, 1024 * 1024)
 
 	def input_init(self):
 		request = (8).to_bytes(1, "little")
@@ -68,8 +71,8 @@ class Console:
 	def input_tick(self):
 		request = (7).to_bytes(1, "little")
 		self._send_(request)
-		res = win32file.ReadFile(self.pipe_in, 4096)
-		return json.loads(res[1][1:].decode())
+		res = self._get_()
+		return json.loads(res[1][1:].decode()) if res != None else [{'type': 'exit'}]
 
 	def print(self, data):
 		request = ((2).to_bytes(1, "little")) + data.encode()
@@ -100,7 +103,7 @@ class Console:
 		request = ((6).to_bytes(1, "little"))
 		self._send_(request)
 		time.sleep(1)
-		res = win32file.ReadFile(self.pipe_in, 4096)
+		res = self._get_()
 		if int(res[1][0]) == 1:
 			return (int(res[1][1]), int(res[1][2]))
 		else:

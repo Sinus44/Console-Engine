@@ -10,8 +10,8 @@ class Button(Element):
 
 		if self.enable:
 			if self.focused:
-				self.screen.text(text, self.x, self.y, wordPrefix=self.style["backgroundF"] + self.style["textF"])
+				self.screen.text(self.x, self.y, text, text_prefix=self.style["backgroundF"] + self.style["textF"])
 			else:
-				self.screen.text(text, self.x, self.y, wordPrefix=self.style["background"] + self.style["text"])
+				self.screen.text(self.x, self.y, text, text_prefix=self.style["background"] + self.style["text"])
 		else:
-			self.screen.text(text, self.x, self.y, wordPrefix=self.style["disable"] + self.style["text"])
+			self.screen.text(self.x, self.y, text, text_prefix=self.style["disable"] + self.style["text"])
