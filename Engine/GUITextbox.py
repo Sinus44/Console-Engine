@@ -7,7 +7,6 @@ class Textbox(Element):
     """[GUI] Текстовое поле"""
     
     def __init__(self, screen, style, x, y, text="", enable=True, maxLength=0, alphabet="123457890"):
-        """Коснтруктор\nПринимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (bool) enable - состояние, (int) maxLength - максимальная длина текста, (string) alphabet - алфавит доступных для ввода символов"""
         super().__init__(screen, style, x, y, text, enable)
         self.value = ""
         self.maxLength = maxLength
@@ -15,7 +14,7 @@ class Textbox(Element):
         self.alphabet = alphabet
 
     def __str__(self):
-        """Возвращает текст из текствого поля\nВозвращает: (string) - текст из текствого поля"""
+        """Возвращает текст из текствого поля"""
         return self.value
         
     def click(self, obj):
@@ -32,7 +31,7 @@ class Textbox(Element):
         self.selected = False
 
     def inputFromEvent(self,):
-        """Обработка нажатий клавиатуры\nПринимает: (Event) event - событие"""
+        """Обработка нажатий клавиатуры"""
         if not(self.selected): return
         if Input.eventType == Input.Types.Keyboard:
             if Input.keyboardState == Input.Keyboard.DOWN and not Input.prevKeyboardState:

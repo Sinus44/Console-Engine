@@ -57,7 +57,7 @@ class Input:
 	"""Обработка входящих событий окна консоли"""
 
 	def init(useHotkey=False, lineInput=False, echo=False, resizeEvents=False, mouseEvents=False, insert=False, quickEdit=False, extended=False, handle=None):
-		"""Включает получение событий\nПринимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit"""
+		"""Включает получение событий"""
 		Input.handle = handle or ctypes.windll.kernel32.GetStdHandle(-10)
 		Input.events = ctypes.wintypes.DWORD()
 		Input.record = (INPUT_RECORD * 32)()
@@ -75,7 +75,7 @@ class Input:
 		ctypes.windll.kernel32.SetConsoleMode(Input.handle, out)
 
 	def tick():
-		"""Получение и запись событий"""
+		"""Получение событий"""
 
 		ctypes.windll.kernel32.ReadConsoleInputExW(Input.handle, ctypes.byref(Input.record), 16, ctypes.byref(Input.events), 2)
 
@@ -88,32 +88,31 @@ class Input:
 			event_type = event_record.EventType 
 			event = event_record.Event
 
-			# Event Type classification
 			if event_type == 1:
-				event_type = "keyboard"
+				event_dict["type"] = "keyboard"
+				event_dict["key_code"] = event.KeyEvent.wVirtualKeyCode
+				event_dict["key_char"] = event.KeyEvent.uChar.UnicodeChar
+				event_dict["key_state"] = event.KeyEvent.bKeyDown
 
 			elif event_type == 2:
-				event_type = "mouse"
+				event_dict["type"] = "mouse"
+				event_dict["mouse_type"] = event.MouseEvent.dwEventFlags
+				event_dict["mouse_x"] = event.MouseEvent.dwMousePosition.X
+				event_dict["mouse_y"] = event.MouseEvent.dwMousePosition.Y
+				event_dict["mouse_key"] = event.MouseEvent.dwButtonState
 
 			elif event_type == 4:
-				event_type = "window"
+				event_dict["type"] = "window"
+				event_dict["window_x"] = event.WindowBufferSizeEvent.dwSize.X
+				event_dict["window_y"] = event.WindowBufferSizeEvent.dwSize.Y
 
 			elif event_type == 8:
-				event_type = "menu"
+				event_dict["type"] = "menu"
+				event_dict["menu"] = event.MenuEvent.dwCommandId
 
 			elif event_type == 16:
-				event_type = "focus"
-
-			event_dict["type"] = event_type
-
-			event_dict["mouse_type"] = event.MouseEvent.dwEventFlags
-			event_dict["x"] = event.MouseEvent.dwMousePosition.X
-			event_dict["y"] = event.MouseEvent.dwMousePosition.Y
-			event_dict["mouse_key"] = event.MouseEvent.dwButtonState
-
-			event_dict["key_code"] = event.KeyEvent.wVirtualKeyCode
-			event_dict["key_char"] = event.KeyEvent.uChar.UnicodeChar
-			event_dict["key_state"] = event.KeyEvent.bKeyDown
+				event_dict["type"] = "focus"
+				event_dict["focus"] = event.FocusEvent.bSetFocus
 
 			events_list.append(event_dict)
 

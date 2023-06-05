@@ -1,10 +1,18 @@
 # _CONSOLE-ENGINE_
-Описание:
+Описание: Описание:
 Многосторонний модуль, для разных задач
-
 ![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?logo=windows&logoColor=white)
 ![MIT](https://img.shields.io/badge/license-MIT%20License-green)
+
+# Используется в:
+- [SnakeCE](https://github.com/Sinus44/SnakeCE)
+- [LabGenCE](https://github.com/Sinus44/SnakeCE)
+- [FractalCE](https://github.com/Sinus44/FractalCE)
+- [Console-TicTacToe](https://github.com/Sinus44/Console-TicTacToe)
+- [EBMConsoleViewer](https://github.com/Sinus44/EBMConsoleViewer)
+- [1_Neural-Network](https://github.com/Sinus44/1_Neural-Network)
+
 
 # Тестировалось на:
 - Python 3.10.0
@@ -17,11 +25,10 @@
 |[Console](https://github.com/Sinus44/Console-Engine#class-Console)|Создание дополнительного отдельного окна консоли|
 |[Input](https://github.com/Sinus44/Console-Engine#class-Input)|Обработка входящих событий окна консоли|
 |[Logging](https://github.com/Sinus44/Console-Engine#class-Logging)|Запись отладочной информации в файл|
-|[Output](https://github.com/Sinus44/Console-Engine#class-Output)|Настройка выходного буффера окна консоли|
-|[Performance](https://github.com/Sinus44/Console-Engine#class-Performance)|Замер времени выполнения кода|
 |[Scene](https://github.com/Sinus44/Console-Engine#class-Scene)|Экземпляр сцены|
 |[Scene_Control](https://github.com/Sinus44/Console-Engine#class-Scene_Control)|Управления отображаемыми сценами|
 |[Sound](https://github.com/Sinus44/Console-Engine#class-Sound)|Воспроизведение звуков из WAV файлов|
+|[Symbol](https://github.com/Sinus44/Console-Engine#class-Symbol)|Описывает символ в консоли|
 |[Window](https://github.com/Sinus44/Console-Engine#class-Window)|Изображение в консоли|
 |[Element](https://github.com/Sinus44/Console-Engine#class-Element)|[GUI] База для GUI элементов|
 |[Border](https://github.com/Sinus44/Console-Engine#class-Border)|[GUI] Рамка для изображения|
@@ -42,12 +49,12 @@
 ### rgb\_background(r:int, g:int, b:int)
 Возвращает: str
 Описание:
-Возвращает символ-код установки цвета фона
+Получение символ-кода установки цвета фона
 
 ### rgb\_text(r:int, g:int, b:int)
 Возвращает: str
 Описание:
-Возвращает символ-код установки цвета основного текста
+Получение символ-кода установки цвета основного текста
 
 ## Class Console
 Описание:
@@ -86,7 +93,7 @@
 ### set\_size(w:int, h:int)
 
 Описание:
-Изменение размера консоли
+Смена размера консоли
 
 ### set\_title(title:str)
 
@@ -121,12 +128,11 @@
 
 Описание:
 Включает получение событий
-Принимает: (bool) useHotkey - использование горячих клавиш, (bool) lineInput - описание отсутствует, (bool) echo - добавление в выходной массив, (bool) resizeEvents - принятие событий изменения размеров окна, (bool) mouseEvents - принятие событий мыши, (bool) insert - включает insert, (bool) quickEdit - выделение мышью, (bool) extended - запрет quickEdit
 
 ### tick()
 
 Описание:
-Получение и запись событий
+Получение событий
 
 ## Class Logging
 Описание:
@@ -137,50 +143,11 @@
 
 Описание:
 Логирование в файл
-Принимает: (*strings) - строки для логгирования
 
 ### print()
 
 Описание:
-Логирование в консольnПринимает: (*strings) - строки для логгирования
-
-## Class Output
-Описание:
-Настройка выходного буффера окна консоли
-### Методы:
-
-### init(handle:int, mode:int)
-Возвращает: bool
-Описание:
-Иницаилизация окна консоли
-
-### get\_title()
-Возвращает: str
-Описание:
-Получение заголовка окна консоли
-
-## Class Performance
-Описание:
-Замер времени выполнения кода
-### Методы:
-
-### start()
-
-Описание:
-Указывает начальное время отсчета
-
-### time()
-
-Описание:
-Возвращает время прошедшее с точки отсчета
-Возвращает: (float) - время в секундах
-
-### function()
-
-Описание:
-Возвращает время выполнения функции
-Принимает: (function) f - функция для тестирования, (int) repeats - кол-во повторений 1го замера, (int) count - кол-во замеров
-Возвращает: (float) - время в секундах
+Логирование в консоль
 
 ## Class Scene
 Описание:
@@ -191,17 +158,25 @@
 
 
 
+### start()
+
+Описание:
+Выполняется при запуске сцены
+
+### update()
+
+Описание:
+Метод для обновления логики прилоежния
+
+### draw()
+
+Описание:
+Метод для обновления отрисовки приложения
+
 ### remove()
 
-
-
-### play()
-
-
-
-### select()
-
-
+Описание:
+Вызывается при смене сцены
 
 ## Class Scene_Control
 Описание:
@@ -227,10 +202,18 @@
 Описание:
 Импорт сцен из словаря
 
+### \_draw\_()
+
+
+
+### \_update\_()
+
+
+
 ### play()
 
 Описание:
-Воспроизведение сцены
+Начинает воспроизведение сцены
 
 ### remove(name:str)
 
@@ -241,6 +224,11 @@
 
 Описание:
 Удаление всех сцен из списка
+
+### stop()
+
+Описание:
+Остановка воспроизведения сцены
 
 ## Class Sound
 Описание:
@@ -261,6 +249,15 @@
 Описание:
 Остановка воспроизведения
 
+## Class Symbol
+Описание:
+Описывает символ в консоли
+### Методы:
+
+### \_\_init\_\_(char:str, background_color:str, text_color:str)
+
+
+
 ## Class Window
 Описание:
 Изображение в консоли
@@ -268,8 +265,7 @@
 
 ### \_\_init\_\_(w:int, h:int)
 
-Описание:
-Принимает консоль с которой необходимо взаимодействовать
+
 
 ### set\_size(w:int, h:int)
 
@@ -286,47 +282,41 @@
 Описание:
 Отчистка вывода в консоль
 
-### fill(symbol:str)
+### fill(symbol:object)
 
 Описание:
 Заливка всего буффера определенным символом
 
-### point(x:int, y:int, symbol:int)
+### point(x:int, y:int, symbol:object)
 
-Описание:
-Установка символа в буффер по координатам
 
-### rectFill(x:int, y:int, w:int, h:int, symbol:str)
+
+### rect\_fill(x:int, y:int, w:int, h:int, symbol:object)
 
 Описание:
 Заполненный прямоугольник в буффер
 
-### rect(x:int, y:int, w:int, h:int, symbol:str)
+### rect(x:int, y:int, w:int, h:int, symbol:object)
 
 Описание:
 Пустотелый прямоугольник в буффер
 
-### circleFill(x:int, y:int, r:int, symbol:str)
+### circle\_fill(x:int, y:int, r:int, symbol:object)
 
 Описание:
 Залитый круг в буффер
 
-### circle()
+### circle(x:int, y:int, r:int, symbol:object)
 
 Описание:
 Пустотелый круг в буффер
 
-### line()
+### line(x1:int, y1:int, x2:int, y2:int, symbol:object)
 
 Описание:
 Линия по координатам
 
-### paste()
-
-Описание:
-Вставка буффера другого объекта в текущий
-
-### text(x:int, y:int, text:str, text_prefix:str, symbol_prefix:str, text_postfix:str, symbol_postfix:str)
+### text(x:int, y:int, text:str, background_color:str, text_color:str)
 
 Описание:
 Текст
@@ -456,15 +446,12 @@
 
 ### \_\_init\_\_()
 
-Описание:
-Коснтруктор
-Принимает: (Window) screen - окно в котором необходимо рисовать, (Style) style - стиль, (int) x - коорината x, (int) y - координата y, (string) text - текст, (bool) enable - состояние, (int) maxLength - максимальная длина текста, (string) alphabet - алфавит доступных для ввода символов
+
 
 ### \_\_str\_\_()
 
 Описание:
 Возвращает текст из текствого поля
-Возвращает: (string) - текст из текствого поля
 
 ### click()
 
@@ -480,7 +467,6 @@
 
 Описание:
 Обработка нажатий клавиатуры
-Принимает: (Event) event - событие
 
 ### draw()
 

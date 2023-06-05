@@ -4,7 +4,7 @@ class Logging:
 	"""Запись отладочной информации в файл"""
 
 	def log(*text):
-		"""Логирование в файл\nПринимает: (*strings) - строки для логгирования"""
+		"""Логирование в файл"""
 		date = datetime.datetime.now()
 		file = open(f"{date.day}{date.month}{date.year}.log", "a")
 
@@ -15,7 +15,7 @@ class Logging:
 		file.close()
 
 	def print(*text, end="\n"):
-		"""Логирование в консольnПринимает: (*strings) - строки для логгирования"""
+		"""Логирование в консоль"""
 		date = datetime.datetime.now()
 		
 		for i in text:

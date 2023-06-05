@@ -16,7 +16,6 @@ class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
         ("dwMaximumWindowSize", ctypes.wintypes._COORD),
     ]
 
-
 console_id = sys.argv[1]
 
 pipe_in_name = r'\\.\pipe\consolein' + console_id
@@ -25,27 +24,23 @@ pipe_out_name = r'\\.\pipe\consoleout' + console_id
 pipe_in = win32file.CreateFile(
 	pipe_in_name,
 	win32file.GENERIC_READ | win32file.GENERIC_WRITE,
-	0, None,
-	win32file.OPEN_EXISTING,
-	0, None
+	0, None, win32file.OPEN_EXISTING, 0, None
 )
 
 pipe_out = win32pipe.CreateNamedPipe(
 	pipe_out_name,
-	win32pipe.PIPE_ACCESS_DUPLEX, # доступ на чтение и запись
-	win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
-	1, # количество экземпляров канала
-	1024 * 1024 * 32, # размер выходного буфера
-	1024 * 1024 * 32, # размер входного буфера
-	0, # таймаут на соединение
-	None # защита по умолчанию
+	win32pipe.PIPE_ACCESS_DUPLEX,
+	win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT, 1,
+	1024 * 1024 * 32,
+	1024 * 1024 * 32,
+	0, None
 )
 
 win32pipe.ConnectNamedPipe(pipe_out, None)
 enable = True
 
-ctypes.windll.kernel32.SetConsoleMode(ctypes.windll.kernel32.GetStdHandle(-11), 5)
-
+out_handle = ctypes.windll.kernel32.GetStdHandle(-11)
+ctypes.windll.kernel32.SetConsoleMode(out_handle, 5)
 while enable:
 	try:
 		message = win32file.ReadFile(pipe_out, 1024 * 1024 * 32)
@@ -60,8 +55,8 @@ while enable:
 		quit()
 
 	elif command == 2:
-		sys.stdout.write(content.decode())
-		sys.stdout.flush()
+		data = content.decode()
+		ctypes.windll.kernel32.WriteConsoleW(out_handle, data, len(data), None, None)
 
 	elif command == 3:
 		title = message[1][1:].decode()
@@ -73,8 +68,8 @@ while enable:
 		ctypes.windll.user32.SendMessageW(hwnd, 0x80, 0, icon_handle)
 
 	elif command == 5:
-		w = int(message[1][1])
-		h = int(message[1][2])
+		w = int.from_bytes([message[1][1], message[1][2]], byteorder="little")
+		h = int.from_bytes([message[1][3], message[1][4]], byteorder="little")
 		os.system(f'mode con cols={w} lines={h}')
 
 	elif command == 6:

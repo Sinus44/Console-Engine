@@ -1,27 +1,15 @@
 """Многосторонний модуль, для разных задач"""
-# version 9.3.3
+# version 9.5.0
 
 # Engine
-#from Engine.Admin import Admin
-#from Engine.BMP import BMP
-#from Engine.Byte import Byte
 from Engine.Color import Color
 from Engine.Console import Console
-#from Engine.Config import Config
-#from Engine.EBM import EBM
-#from Engine.ImageBMP import ImageBMP  
-#from Engine.ImageEBM import ImageEBM
 from Engine.Input import Input
-#from Engine.Interval import Interval
 from Engine.Logging import Logging
-#from Engine.Mmath import Mmath
-from Engine.Output import Output
-from Engine.Performance import Performance
 from Engine.Scene import Scene, Scene_Control
 from Engine.Sound import Sound
-#from Engine.Vector import Vector
 from Engine.Window import Window
-
+from Engine.Symbol import Symbol
 # GUI
 from Engine.GUIElement import Element
 

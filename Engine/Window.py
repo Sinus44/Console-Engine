@@ -2,12 +2,12 @@ import ctypes
 import os
 import time
 from Engine.Console import Console
+from Engine.Symbol import Symbol
 
 class Window:
 	"""Изображение в консоли"""
 
 	def __init__(self, w:int, h:int):
-		"""Принимает консоль с которой необходимо взаимодействовать"""
 		self.console = Console()
 
 		self.input_tick = self.console.input_tick
@@ -20,7 +20,13 @@ class Window:
 
 		self.w = w
 		self.h = h
-		self.buffer = [[]]
+
+		self.buffer = []
+		for i in range(self.h):
+			self.buffer.append([])
+			for j in range(self.w):
+				self.buffer[i].append([])
+
 		self.prev_frame = None
 
 	def set_size(self, w:int, h:int):
@@ -28,6 +34,7 @@ class Window:
 		self.w = w
 		self.h = h
 		self.console.set_size(self.w, self.h)
+		self.console.input_init()
 
 	def print(self):
 		"""Вывод буффера в консоль"""
@@ -36,52 +43,59 @@ class Window:
 
 		s = ""
 		for string in self.buffer:
-			s = s +"".join(string)
+			string_text = ""
+			prev_symb = Symbol()
+
+			for symbol in string:
+				if symbol.text_color != prev_symb.text_color: string_text += symbol.text_color
+				if symbol.background_color != prev_symb.background_color: string_text += symbol.background_color
+				string_text += symbol.char
+				prev_symb = symbol
+
+			s += string_text
 
 		self.console.print(s)
 		self.prev_frame = self.buffer
 
 	def clear(self):
 		"""Отчистка вывода в консоль"""
-		self.fill("")
+		self.fill()
+		self.print()
 
-	def fill(self, symbol:str=" "):
+	def fill(self, symbol:object=None):
 		"""Заливка всего буффера определенным символом"""
-		symbol = str(symbol)
-		self.buffer = []
 		for i in range(self.h):
-			self.buffer.append([])
 			for j in range(self.w):
-				self.buffer[i].append(symbol)
+				self.point(j, i, symbol)
 
-	def point(self, x:int, y:int, symbol:int="*"):
+	def point(self, x:int, y:int, symbol:object=None):
 		x = int(x)
 		y = int(y)
 		"""Установка символа в буффер по координатам"""
 		if (0 <= x < self.w) and (0 <= y < self.h):
-			self.buffer[y][x] = symbol
+			self.buffer[y][x] = symbol or Symbol()
 
-	def rectFill(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:str="*"):
+	def rect_fill(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:object=None):
 		"""Заполненный прямоугольник в буффер"""
 		for i in range(h):
 			for j in range(w):
-				self.point(j+x, i+y, symbol)
+				self.point(j + x, i + y, symbol)
 
-	def rect(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:str="*"):
+	def rect(self, x:int=0, y:int=0, w:int=1, h:int=1, symbol:object=None):
 		"""Пустотелый прямоугольник в буффер"""
 		for i in range(h):
 			for j in range(w):
 				if i == 0 or i == h-1 or j == 0 or j == w - 1:
 					self.point(j + x, i + y, symbol)
 
-	def circleFill(self, x:int=0, y:int=0, r:int=1, symbol:str="*"):
+	def circle_fill(self, x:int=0, y:int=0, r:int=1, symbol:object=None):
 		"""Залитый круг в буффер"""
 		for i in range(self.h):
 			for j in range(self.w):
 				if (i - y) ** 2 + (j - x) ** 2  <= r ** 2:
 					self.point(j, i, symbol)
 
-	def circle(self, x=0, y=0, r=1, symbol="*"):
+	def circle(self, x:int=0, y:int=0, r:int=1, symbol:object=None):
 		"""Пустотелый круг в буффер"""
 		disp_x = x
 		disp_y = y
@@ -109,7 +123,7 @@ class Window:
 			delta = delta + (2 * (x - y))
 			y -= 1
 
-	def line(self, x1=0, y1=0, x2=0, y2=0, symbol="*"):
+	def line(self, x1:int=0, y1:int=0, x2:int=0, y2:int=0, symbol:object=None):
 		"""Линия по координатам"""
 		delX = abs(x2 - x1)
 		delY = abs(y2 - y1)
@@ -137,15 +151,7 @@ class Window:
 				error += delX
 				y1 += signY
 
-	def paste(self, window, x=0, y=0):
-		"""Вставка буффера другого объекта в текущий"""
-
-		for i in range(len(window.buffer)):
-			for j in range(len(window.buffer[0])):
-				self.point(j + x, i + y, buffer[i][j])
-				self.buffer[i + y][j + x] = buffer[i][j]
-
-	def text(self, x:int, y:int, text:str="TEXT", text_prefix:str="", symbol_prefix:str="", text_postfix:str="", symbol_postfix:str=""):
+	def text(self, x:int, y:int, text:str="TEXT", background_color:str="", text_color:str=""):
 		"""Текст"""
 		text = str(text)
 		x = int(x)
@@ -154,4 +160,4 @@ class Window:
 			return
 
 		for i in range(len(text)):
-			self.buffer[y][x + i] = (text_prefix if i == 0 else "") + symbol_prefix + text[i] + symbol_postfix + (text_postfix if i == len(text) - 1 else "")
+			self.buffer[y][x + i] = Symbol(background_color=background_color, text_color=text_color, char=text[i])

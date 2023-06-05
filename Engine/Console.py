@@ -84,22 +84,23 @@ class Console:
 		self._send_(request)
 
 	def set_size(self, w:int, h:int):
-		"""Изменение размера консоли"""
-		if w > 255 or h > 255: return
-		request = ((5).to_bytes(1, "little")) + ((w).to_bytes(1, "little")) + ((h).to_bytes(1, "little"))
+		"""Смена размера консоли"""
+		#if w > 255 or h > 255: return
+		request = ((5).to_bytes(1, "little")) + ((w).to_bytes(2, "little")) + ((h).to_bytes(2, "little"))
 		self._send_(request)
-		time.sleep(0.1)
+		time.sleep(0.3)
 
 	def set_title(self, title:str):
 		"""Смена заголовка"""
 		request = ((3).to_bytes(1, "little")) + title.encode()
 		self._send_(request)
-		time.sleep(0.01)
+		time.sleep(0.3)
 
 	def set_icon(self, path:str):
 		"""Смена иконки"""
 		request = ((4).to_bytes(1, "little")) + path.encode()
 		self._send_(request)
+		time.sleep(0.3)
 
 	def close(self):
 		"""Закрытие окна"""
