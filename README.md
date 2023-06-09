@@ -11,7 +11,6 @@
 - [FractalCE](https://github.com/Sinus44/FractalCE)
 - [Console-TicTacToe](https://github.com/Sinus44/Console-TicTacToe)
 - [EBMConsoleViewer](https://github.com/Sinus44/EBMConsoleViewer)
-- [1_Neural-Network](https://github.com/Sinus44/1_Neural-Network)
 
 
 # Тестировалось на:
@@ -320,6 +319,10 @@
 
 Описание:
 Текст
+
+### table()
+
+
 
 ## Class Element
 Описание:

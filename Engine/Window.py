@@ -160,4 +160,49 @@ class Window:
 			return
 
 		for i in range(len(text)):
-			self.buffer[y][x + i] = Symbol(background_color=background_color, text_color=text_color, char=text[i])
+			self.point(x + i, y, Symbol(background_color=background_color, text_color=text_color, char=text[i]))
+
+	def table(self, x, y, data, header):
+		if not data:
+			print("[ERROR][WINDOW][TABLE] Data empty")
+			return
+
+		data = data.copy()
+		header = header.copy()
+
+		for i, row in enumerate(data):
+			for j, cell in enumerate(row):
+				data[i][j] = str(cell)
+
+		max_widths = []
+		for title in header:
+			max_widths.append(len(title))
+
+		for i, row in enumerate(data):
+			for j, cell in enumerate(row):
+				max_widths[j] = max(max_widths[j], len(cell))
+
+		width = sum(max_widths) + len(max_widths) + 1
+
+		# Нормализация длины заголовка
+		for i, title in enumerate(header):
+			header[i] += " " * (max_widths[i] - len(title))
+
+		# Нормализация длины информации
+		for i, row in enumerate(data):
+			for j, cell in enumerate(row):
+				data[i][j] += " " * (max_widths[j] - len(data[i][j]))
+
+		out_strings = []
+
+		out_strings.append("-" * width)
+		out_strings.append("|" + "|".join(header) + "|")
+		out_strings.append("-" * width)
+
+		for row in data:
+			out_strings.append("|" + "|".join(row) + "|")
+
+		out_strings.append("-" * width)
+
+		for i, string in enumerate(out_strings):
+			self.text(x, y + i, string)

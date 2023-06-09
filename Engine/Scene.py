@@ -4,7 +4,7 @@ import time
 class Scene_Control:
 	"""Управления отображаемыми сценами"""
 
-	def __init__(self, update_time=0, frame_time=0.001):
+	def __init__(self, update_time=0, frame_time=0.05):
 		self.scenes_list = {}
 		self.selected = ""
 		self.prev = ""
