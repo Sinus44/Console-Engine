@@ -33,13 +33,13 @@ class Element:
 		if self.enable:
 			if event["type"] == "mouse":
 				if event["mouse_type"] == 1:
-					if self.intersection(event["x"], event["y"]):
+					if self.intersection(event["mouse_x"], event["mouse_y"]):
 						self.on_hover(event)
 					else:
 						self.no_hover(event)
 
 				if event["mouse_key"] != self.mouse_key:
-					if self.intersection(event["x"], event["y"]):
+					if self.intersection(event["mouse_x"], event["mouse_y"]):
 						if event["mouse_key"] == 0:
 							self.on_mouse_up(event)
 

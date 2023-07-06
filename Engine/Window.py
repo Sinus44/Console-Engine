@@ -156,6 +156,7 @@ class Window:
 		text = str(text)
 		x = int(x)
 		y = int(y)
+
 		if (x < 0 or y < 0) or (x + len(text) > self.w):
 			return
 
@@ -163,10 +164,7 @@ class Window:
 			self.point(x + i, y, Symbol(background_color=background_color, text_color=text_color, char=text[i]))
 
 	def table(self, x, y, data, header):
-		if not data:
-			print("[ERROR][WINDOW][TABLE] Data empty")
-			return
-
+		"""Таблица"""
 		data = data.copy()
 		header = header.copy()
 

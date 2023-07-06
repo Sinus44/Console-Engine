@@ -22,8 +22,8 @@ class Button(Element):
 
 		if self.enable:
 			if self.hovered:
-				self.window.text(self.x, self.y, text, text_prefix=self.style.background_fill + self.style.text_fill)
+				self.window.text(self.x, self.y, text, background_color=self.style.background_fill, text_color=self.style.text_fill)
 			else:
-				self.window.text(self.x, self.y, text, text_prefix=self.style.background + self.style.text)
+				self.window.text(self.x, self.y, text, background_color=self.style.background, text_color=self.style.text)
 		else:
-			self.window.text(self.x, self.y, text, text_prefix=self.style.disable + self.style.text)
+			self.window.text(self.x, self.y, text, background_color=self.style.disable, text_color=self.style.text)

@@ -1,5 +1,5 @@
 """Многосторонний модуль, для разных задач"""
-# version 9.5.0
+# version 9.5.2
 
 # Engine
 from Engine.Color import Color

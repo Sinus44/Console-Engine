@@ -5,4 +5,4 @@ class Label(Element):
 	def draw(self):
 		"""Отрисовка"""
 		if self.visible:
-			self.window.text(self.x, self.y, self.text, text_prefix=self.style.background + self.style.text)
+			self.window.text(self.x, self.y, self.text, background_color=self.style.background, text_color=self.style.text)

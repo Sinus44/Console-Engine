@@ -1,3 +1,5 @@
+from Engine.Symbol import Symbol
+
 class Frame:
 	"""[GUI] Фон"""
 	
@@ -7,4 +9,4 @@ class Frame:
 	
 	def draw(self):
 		"""Отрисовка"""
-		self.window.fill(self.style.background + " ")
+		self.window.fill(Symbol(background_color=self.style.background, char=" "))

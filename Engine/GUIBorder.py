@@ -1,4 +1,5 @@
 from Engine.GUIStyle import Style
+from Engine.Symbol import Symbol
 
 class Border:
 	"""[GUI] Рамка для изображения"""
@@ -10,4 +11,4 @@ class Border:
 		
 	def draw(self):
 		"""Отрисовка"""
-		self.window.rect(0, 0, self.window.w, self.window.h, self.style.text + self.style.background + self.symbol)
+		self.window.rect(0, 0, self.window.w, self.window.h, Symbol(char=self.symbol, text_color=self.style.text, background_color=self.style.background))
