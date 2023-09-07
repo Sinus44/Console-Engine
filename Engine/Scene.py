@@ -84,8 +84,8 @@ class Scene:
 	def __init__(self, **kwargs):
 		self.__dict__ = kwargs
 
-	def start(self):
-		"""Выполняется при запуске сцены"""
+	def selected(self):
+		"""Выполняется при выборе сцены"""
 		...
 
 	def update(self):

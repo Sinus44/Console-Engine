@@ -20,6 +20,7 @@ class CONSOLE_SCREEN_BUFFER_INFO(ctypes.Structure):
 
 class Console:
 	"""Создание дополнительного отдельного окна консоли"""
+	
 	def __init__(self):
 		self.id = random.randint(1000, 9999)
 		self.pipe_out_name = r"\\.\pipe\consoleout" + str(self.id)
@@ -51,7 +52,7 @@ class Console:
 			self.enable = False
 
 	def _send_(self, data):
-		"""Байтовая отправка команд"""
+		"""Закрытый метод. Переназначение приведет к ошибкам."""
 		if not self.enable: return
 		try:
 			win32file.WriteFile(self.pipe_out, data)
@@ -59,7 +60,7 @@ class Console:
 			self.enable = False
 
 	def _get_(self):
-		"""Байтовое принятие команд"""
+		"""Закрытый метод. Переназначение приведет к ошибкам."""
 		if not self.enable: return
 		try:
 			return win32file.ReadFile(self.pipe_in, 1024 * 1024 * 32)
@@ -71,7 +72,7 @@ class Console:
 		request = (8).to_bytes(1, "little")
 		self._send_(request)
 
-	def input_tick(self):
+	def input_tick(self) -> tuple:
 		"""Получение ивентов"""
 		request = (7).to_bytes(1, "little")
 		self._send_(request)
@@ -121,4 +122,5 @@ class Console:
 			return (0, 0)
 
 	def __del__(self):
+		"""Закрытый метод. Переназначение приведет к ошибкам."""
 		self.close()

@@ -7,7 +7,7 @@
 
 # Используется в:
 - [SnakeCE](https://github.com/Sinus44/SnakeCE)
-- [LabGenCE](https://github.com/Sinus44/SnakeCE)
+- [LabGenCE](https://github.com/Sinus44/LabGenCE)
 - [FractalCE](https://github.com/Sinus44/FractalCE)
 - [Console-TicTacToe](https://github.com/Sinus44/Console-TicTacToe)
 - [EBMConsoleViewer](https://github.com/Sinus44/EBMConsoleViewer)
@@ -29,28 +29,16 @@
 |[Sound](https://github.com/Sinus44/Console-Engine#class-Sound)|Воспроизведение звуков из WAV файлов|
 |[Symbol](https://github.com/Sinus44/Console-Engine#class-Symbol)|Описывает символ в консоли|
 |[Window](https://github.com/Sinus44/Console-Engine#class-Window)|Изображение в консоли|
-|[Element](https://github.com/Sinus44/Console-Engine#class-Element)|[GUI] База для GUI элементов|
-|[Border](https://github.com/Sinus44/Console-Engine#class-Border)|[GUI] Рамка для изображения|
-|[Button](https://github.com/Sinus44/Console-Engine#class-Button)|[GUI] Кнопка|
-|[Checkbox](https://github.com/Sinus44/Console-Engine#class-Checkbox)|[GUI] Чекбокс - Переключатель|
-|[Textbox](https://github.com/Sinus44/Console-Engine#class-Textbox)|[GUI] Текстовое поле|
-|[Group](https://github.com/Sinus44/Console-Engine#class-Group)|[GUI] Группа GUI элементов|
-|[Frame](https://github.com/Sinus44/Console-Engine#class-Frame)|[GUI] Фон|
-|[Grid](https://github.com/Sinus44/Console-Engine#class-Grid)|[GUI] Визуальная сетка|
-|[Style](https://github.com/Sinus44/Console-Engine#class-Style)|[GUI] Настройка цветов для GUI элементов|
-|[Label](https://github.com/Sinus44/Console-Engine#class-Label)|[GUI] Текст|
-|[Table](https://github.com/Sinus44/Console-Engine#class-Table)|[GUI] Таблица|
 ## Class Color
 Описание:
 Работа с цветами для консоли
 ### Методы:
-
-### rgb\_background(r:int, g:int, b:int)
+### rgb\_background(r: int, g: int, b: int)
 Возвращает: str
 Описание:
 Получение символ-кода установки цвета фона
 
-### rgb\_text(r:int, g:int, b:int)
+### rgb\_text(r: int, g: int, b: int)
 Возвращает: str
 Описание:
 Получение символ-кода установки цвета основного текста
@@ -59,7 +47,6 @@
 Описание:
 Создание дополнительного отдельного окна консоли
 ### Методы:
-
 ### \_\_init\_\_()
 
 
@@ -67,12 +54,12 @@
 ### \_send\_()
 
 Описание:
-Байтовая отправка команд
+Закрытый метод. Переназначение приведет к ошибкам.
 
 ### \_get\_()
 
 Описание:
-Байтовое принятие команд
+Закрытый метод. Переназначение приведет к ошибкам.
 
 ### input\_init()
 
@@ -80,7 +67,7 @@
 Инициализация ввода
 
 ### input\_tick()
-
+Возвращает: tuple
 Описание:
 Получение ивентов
 
@@ -89,17 +76,17 @@
 Описание:
 Вывод в консоль
 
-### set\_size(w:int, h:int)
+### set\_size(w: int, h: int)
 
 Описание:
 Смена размера консоли
 
-### set\_title(title:str)
+### set\_title(title: str)
 
 Описание:
 Смена заголовка
 
-### set\_icon(path:str)
+### set\_icon(path: str)
 
 Описание:
 Смена иконки
@@ -116,13 +103,13 @@
 
 ### \_\_del\_\_()
 
-
+Описание:
+Закрытый метод. Переназначение приведет к ошибкам.
 
 ## Class Input
 Описание:
 Обработка входящих событий окна консоли
 ### Методы:
-
 ### init()
 
 Описание:
@@ -137,7 +124,6 @@
 Описание:
 Запись отладочной информации в файл
 ### Методы:
-
 ### log()
 
 Описание:
@@ -152,15 +138,14 @@
 Описание:
 Экземпляр сцены
 ### Методы:
-
 ### \_\_init\_\_()
 
 
 
-### start()
+### selected()
 
 Описание:
-Выполняется при запуске сцены
+Выполняется при выборе сцены
 
 ### update()
 
@@ -181,22 +166,21 @@
 Описание:
 Управления отображаемыми сценами
 ### Методы:
-
 ### \_\_init\_\_()
 
 
 
-### set(name:str)
+### set(name: str)
 
 Описание:
 Установка сцены по имени
 
-### add(name:str, scene:object)
+### add(name: str, scene: object)
 
 Описание:
 Добавление сцены
 
-### add\_from\_dict(scenes:dict)
+### add\_from\_dict(scenes: dict)
 
 Описание:
 Импорт сцен из словаря
@@ -214,7 +198,7 @@
 Описание:
 Начинает воспроизведение сцены
 
-### remove(name:str)
+### remove(name: str)
 
 Описание:
 Удаление сцены из списка
@@ -233,10 +217,10 @@
 Описание:
 Воспроизведение звуков из WAV файлов
 ### Методы:
+### \_\_init\_\_(file_path: str)
 
-### \_\_init\_\_(file_path:str)
-
-
+Описание:
+Примает путь к файлу для воспроизведения
 
 ### play()
 
@@ -252,21 +236,41 @@
 Описание:
 Описывает символ в консоли
 ### Методы:
+### \_\_init\_\_(char: str, background_color: str, text_color: str)
 
-### \_\_init\_\_(char:str, background_color:str, text_color:str)
-
-
+Описание:
+char - сам символ, background_color - цвет фона, text_color - цвет текста
 
 ## Class Window
 Описание:
 Изображение в консоли
 ### Методы:
+### \_\_init\_\_(w: int, h: int)
 
-### \_\_init\_\_(w:int, h:int)
+Описание:
+Принимает ширину и высоту экрана
 
+### input\_tick()
 
+Описание:
+Получение ивентов окна
 
-### set\_size(w:int, h:int)
+### set\_title()
+
+Описание:
+Установка заголовка окна
+
+### set\_icon()
+
+Описание:
+Установка иконки окна
+
+### close()
+
+Описание:
+Закрытие окна
+
+### set\_size(w: int, h: int)
 
 Описание:
 Изменение размеров окна
@@ -281,322 +285,52 @@
 Описание:
 Отчистка вывода в консоль
 
-### fill(symbol:object)
+### fill(symbol: object)
 
 Описание:
 Заливка всего буффера определенным символом
 
-### point(x:int, y:int, symbol:object)
+### point(x: int, y: int, symbol: object)
 
+Описание:
+Установка символа в буффер по координатам
 
-
-### rect\_fill(x:int, y:int, w:int, h:int, symbol:object)
+### rect\_fill(x: int, y: int, w: int, h: int, symbol: object)
 
 Описание:
 Заполненный прямоугольник в буффер
 
-### rect(x:int, y:int, w:int, h:int, symbol:object)
+### rect(x: int, y: int, w: int, h: int, symbol: object)
 
 Описание:
 Пустотелый прямоугольник в буффер
 
-### circle\_fill(x:int, y:int, r:int, symbol:object)
+### circle\_fill(x: int, y: int, r: int, symbol: object)
 
 Описание:
-Залитый круг в буффер
+Залитый круг
 
-### circle(x:int, y:int, r:int, symbol:object)
+### circle(x: int, y: int, r: int, symbol: object)
 
 Описание:
-Пустотелый круг в буффер
+Пустотелый круг
 
-### line(x1:int, y1:int, x2:int, y2:int, symbol:object)
+### line(x1: int, y1: int, x2: int, y2: int, symbol: object)
 
 Описание:
 Линия по координатам
 
-### text(x:int, y:int, text:str, background_color:str, text_color:str)
+### text(x: int, y: int, text: str, background_color: str, text_color: str)
 
 Описание:
 Текст
 
 ### table()
 
-
-
-## Class Element
 Описание:
-[GUI] База для GUI элементов
-### Методы:
+Таблица данных в консоли
 
-### \_\_init\_\_()
+### is\_enable()
 
 
-
-### block()
-
-Описание:
-Блокировка элемента
-
-### intersection()
-
-Описание:
-Проверка на пересечение по координатам
-
-### event()
-
-Описание:
-Передайте ивент для выполнения биндов
-
-### on\_hover()
-
-Описание:
-Наведение мышью на элемент
-
-### no\_hover()
-
-Описание:
-Ивент если мышь более не наведена на элемент
-
-### on\_mouse\_up()
-
-Описание:
-Ивент отпускания кнопки мыши
-
-### on\_left\_click()
-
-Описание:
-Ивент нажатия ЛКМ
-
-### on\_right\_click()
-
-Описание:
-Ивент нажатия ЛКМ
-
-### on\_change()
-
-Описание:
-Изменение состояние
-
-### on\_select()
-
-Описание:
-Выбор элемента
-
-## Class Border
-Описание:
-[GUI] Рамка для изображения
-### Методы:
-
-### \_\_init\_\_(window:object, style:object, symbol:str)
-
-
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Button
-Описание:
-[GUI] Кнопка
-### Методы:
-
-### on\_hover()
-
-Описание:
-Мышь наведена
-
-### no\_hover()
-
-Описание:
-Более мышь не наведена
-
-### format()
-
-Описание:
-Формат кнопки
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Checkbox
-Описание:
-[GUI] Чекбокс - Переключатель
-### Методы:
-
-### \_\_bool\_\_()
-
-Описание:
-Возвращает состояние переключателя
-
-### on\_left\_click()
-
-Описание:
-Событие нажатия
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Textbox
-Описание:
-[GUI] Текстовое поле
-### Методы:
-
-### \_\_init\_\_()
-
-
-
-### \_\_str\_\_()
-
-Описание:
-Возвращает текст из текствого поля
-
-### click()
-
-Описание:
-Событие нажатия
-
-### block()
-
-Описание:
-Блокировка текстового поля
-
-### inputFromEvent()
-
-Описание:
-Обработка нажатий клавиатуры
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Group
-Описание:
-[GUI] Группа GUI элементов
-### Методы:
-
-### \_\_init\_\_(window:object, x:int, y:int, interval:int)
-
-
-
-### append(element:object)
-
-Описание:
-Добавление элементов в группу
-
-### eventHandler()
-
-Описание:
-Обработка событий для всех элементов в группе
-
-### click()
-
-Описание:
-Обработка событий для всех элементов в группе
-
-### sort()
-
-Описание:
-Автопозиционирование элементов группы
-
-### draw()
-
-Описание:
-Отрисовка всех элементов группы
-
-## Class Frame
-Описание:
-[GUI] Фон
-### Методы:
-
-### \_\_init\_\_(window:object, style:object)
-
-
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Grid
-Описание:
-[GUI] Визуальная сетка
-### Методы:
-
-### \_\_init\_\_(window:object, x:int, y:int, w:int, h:int, columns:int, strings:int, style:object)
-
-
-
-### intersection(x:int, y:int)
-
-Описание:
-Вовзращает координаты в сетке
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Style
-Описание:
-[GUI] Настройка цветов для GUI элементов
-### Методы:
-
-### \_\_init\_\_(text:str, text_fill:str, background:str, background_fill:str, disable:str)
-
-
-
-## Class Label
-Описание:
-[GUI] Текст
-### Методы:
-
-### draw()
-
-Описание:
-Отрисовка
-
-## Class Table
-Описание:
-[GUI] Таблица
-### Методы:
-
-### \_\_init\_\_()
-
-Описание:
-Конструктор
-Принимает: (Window) screen - окно для отрисовки, (Style) - стиль, (int) x - x координата, (int) y - y координата, (int) w - ширина, (int) h - высота
-
-### resize()
-
-Описание:
-Перерасчет размеров таблицы
-
-### click()
-
-Описание:
-Нажатие
-Принимает: (object) obj - инициатор события
-
-### block()
-
-Описание:
-Блокировка текстового поля
-
-### inputFromEvent()
-
-Описание:
-Обработка нажатий клавиатуры
-Принимает: (Event) event - событие
-
-### draw()
-
-Описание:
-Отрисовка
 

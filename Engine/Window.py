@@ -7,13 +7,9 @@ from Engine.Symbol import Symbol
 class Window:
 	"""Изображение в консоли"""
 
-	def __init__(self, w:int, h:int):
+	def __init__(self, w:int = 30, h:int = 15):
+		"""Принимает ширину и высоту экрана"""
 		self.console = Console()
-
-		self.input_tick = self.console.input_tick
-		self.set_title = self.console.set_title
-		self.set_icon = self.console.set_icon
-		self.close = self.console.close
 
 		self.size = self.console.set_size(w, h)
 		self.console.input_init()
@@ -28,6 +24,22 @@ class Window:
 				self.buffer[i].append([])
 
 		self.prev_frame = None
+
+	def input_tick(self, *args):
+		"""Получение ивентов окна"""
+		return self.console.input_tick(*args)
+
+	def set_title(self, *args):
+		"""Установка заголовка окна"""
+		return self.console.set_title(*args)
+
+	def set_icon(self, *args):
+		"""Установка иконки окна"""
+		return self.console.set_icon(*args)
+
+	def close(self, *args):
+		"""Закрытие окна"""
+		return self.console.close(*args)	
 
 	def set_size(self, w:int, h:int):
 		"""Изменение размеров окна"""
@@ -69,9 +81,10 @@ class Window:
 				self.point(j, i, symbol)
 
 	def point(self, x:int, y:int, symbol:object=None):
+		"""Установка символа в буффер по координатам"""
+
 		x = int(x)
 		y = int(y)
-		"""Установка символа в буффер по координатам"""
 		if (0 <= x < self.w) and (0 <= y < self.h):
 			self.buffer[y][x] = symbol or Symbol()
 
@@ -89,14 +102,14 @@ class Window:
 					self.point(j + x, i + y, symbol)
 
 	def circle_fill(self, x:int=0, y:int=0, r:int=1, symbol:object=None):
-		"""Залитый круг в буффер"""
+		"""Залитый круг"""
 		for i in range(self.h):
 			for j in range(self.w):
 				if (i - y) ** 2 + (j - x) ** 2  <= r ** 2:
 					self.point(j, i, symbol)
 
 	def circle(self, x:int=0, y:int=0, r:int=1, symbol:object=None):
-		"""Пустотелый круг в буффер"""
+		"""Пустотелый круг"""
 		disp_x = x
 		disp_y = y
 		x = 0
@@ -164,7 +177,7 @@ class Window:
 			self.point(x + i, y, Symbol(background_color=background_color, text_color=text_color, char=text[i]))
 
 	def table(self, x, y, data, header):
-		"""Таблица"""
+		"""Таблица данных в консоли"""
 		data = data.copy()
 		header = header.copy()
 
@@ -204,3 +217,6 @@ class Window:
 
 		for i, string in enumerate(out_strings):
 			self.text(x, y + i, string)
+
+	def is_enable(self):
+		return self.console.enable
