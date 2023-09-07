@@ -22,6 +22,7 @@ class Console:
 	"""Создание дополнительного отдельного окна консоли"""
 	
 	def __init__(self):
+		"""Создание окна консоли"""
 		self.id = random.randint(1000, 9999)
 		self.pipe_out_name = r"\\.\pipe\consoleout" + str(self.id)
 		self.pipe_in_name = r"\\.\pipe\consolein" + str(self.id)
